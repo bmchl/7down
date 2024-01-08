@@ -1,0 +1,38 @@
+<mat-card *ngIf="game" class="box">
+    <mat-card-content class="left">
+        <img [src]="serverPath + game.image" class="image" />
+        <div class="buttons">
+            <mat-card-actions *ngIf="this.configOn">
+                <button mat-flat-button color="accent" aria-label="Reinitialiser" (click)="resetTimes()">
+                    <mat-icon>replay</mat-icon> Réinitialiser
+                </button>
+                <button mat-flat-button color="warn" aria-label="Delete" (click)="deleteGame()"><mat-icon>delete</mat-icon> Effacer</button>
+            </mat-card-actions>
+            <mat-card-actions *ngIf="!this.configOn">
+                <button mat-flat-button color="primary" (click)="createGame()"><mat-icon inline="true">play_arrow</mat-icon> Jouer solo</button>
+                <div *ngIf="game.isGameOn">
+                    <button mat-flat-button color="accent" (click)="joinMultiGame()">
+                        <mat-icon inline="true">people</mat-icon> Rejoindre 1 vs 1
+                    </button>
+                </div>
+                <div *ngIf="!game.isGameOn">
+                    <button mat-flat-button color="primary" (click)="createMultiGame()">
+                        <mat-icon inline="true">people</mat-icon> Créer 1 vs 1
+                    </button>
+                </div>
+            </mat-card-actions>
+        </div>
+    </mat-card-content>
+    <mat-card-content class="right">
+        <mat-card-title-group>
+            <mat-card-title>{{ game.gameName ? game.gameName : 'Sans titre' }} </mat-card-title>
+            <mat-card-subtitle
+                >Difficulté:
+                <span [ngStyle]="{ color: game.difficulty === 10 ? 'red' : 'green' }">{{
+                    game.difficulty === 10 ? 'DIFFICILE' : 'FACILE'
+                }}</span></mat-card-subtitle
+            >
+        </mat-card-title-group>
+        <app-leaderboards [solo]="this.game.soloLeaderboard" [multi]="this.game.multiLeaderboard"></app-leaderboards>
+    </mat-card-content>
+</mat-card>

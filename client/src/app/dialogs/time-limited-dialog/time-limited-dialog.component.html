@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Mode temps limité</h1>
+<mat-dialog-content>
+    <p>Veuillez entrer votre nom et choisir le mode de jeu.</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Votre nom</mat-label>
+        <input required onkeypress="return /[a-zA-Z]/i.test(event.key)" maxlength="10" matInput [(ngModel)]="data.input" />
+        <mat-hint align="end">{{ data.input.length }}/10</mat-hint>
+    </mat-form-field>
+    <span class="player-count">
+        <mat-button-toggle-group [(ngModel)]="this.solo">
+            <mat-button-toggle [value]="true"><mat-icon>person</mat-icon> Solo</mat-button-toggle>
+            <mat-button-toggle [value]="false"><mat-icon>people</mat-icon> Coopératif</mat-button-toggle>
+        </mat-button-toggle-group>
+    </span>
+</mat-dialog-content>
+<span mat-dialog-actions [align]="'end'">
+    <button mat-button (click)="this.dialogRef.close()">Annuler</button>
+    <button mat-button [disabled]="data.input.length === 0 || this.solo === undefined" (click)="triggerStart()">Commencer</button>
+</span>

@@ -1,0 +1,39 @@
+.abandoned-player {
+    text-decoration: line-through;
+}
+.back {
+    background: lightslategrey;
+    width: 100vw;
+    height: 95vh;
+}
+app-header {
+    height: 5vh;
+    width: 100vw;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    width: 80%;
+    height: 5vh;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+.history {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    height: 90vh;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+table {
+    width: 100%;
+}

@@ -1,0 +1,12 @@
+table {
+    width: 100%;
+    margin: auto;
+}
+::ng-deep .mat-tab-label {
+    width: fit-content !important;
+    min-width: 0px !important;
+}
+mat-tab-group {
+    width: 100%;
+    margin-top: 0;
+}

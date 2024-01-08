@@ -1,0 +1,20 @@
+<section class="play-area">
+    <div class="comparison-grid">
+        <div class="draw-container">
+            <canvas class="grid-area" id="canvas1" #gridCanvas0 (click)="mouseHitDetect($event)" [attr.width]="width" [attr.height]="height"></canvas>
+            <span [style.left.px]="error.x" [style.top.px]="error.y" *ngIf="error.show">ERROR</span>
+        </div>
+        <div class="draw-container">
+            <canvas class="grid-area" id="canvas2" #gridCanvas1 (click)="mouseHitDetect($event)" [attr.width]="width" [attr.height]="height"></canvas>
+            <span [style.left.px]="error.x" [style.top.px]="error.y" *ngIf="error.show">ERROR</span>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+

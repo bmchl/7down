@@ -1,0 +1,26 @@
+h1 {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+li {
+    list-style-type: none;
+}
+ul {
+    column-count: 2;
+    list-style-position: inside;
+    padding-left: 0;
+}
+li span {
+    font-weight: bold;
+}
+
+mat-card-title span {
+    font-style: italic;
+}
+
+mat-card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

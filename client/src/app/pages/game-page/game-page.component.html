@@ -1,0 +1,83 @@
+<app-header [hideBack]="true" title="Partie de jeu"></app-header>
+<div class="back" *ngIf="(isFull && hero.multiplayer) || hero.isOver || !hero.multiplayer">
+    <div class="container">
+        <mat-card class="game-header info-bar">
+            <app-game-info [hero]="this.hero" [abandonGame]="abandonGame"></app-game-info>
+            <h2 *ngIf="this.replayService.isDisplaying">Vous êtes en mode reprise vidéo</h2>
+        </mat-card>
+        <div [ngClass]="{ ignoreClick: this.hero.isOver }">
+            <section class="play-area-container">
+                <app-play-area
+                    [hero]="hero"
+                    [differences]="differences"
+                    [images]="gameImages"
+                    [getPlayerName]="getPlayerName"
+                    class="play-area"
+                    tabindex="0"
+                ></app-play-area>
+            </section>
+        </div>
+        <mat-card>
+            <div *ngIf="!hero.multiplayer && !this.replayService.isDisplaying" class="solo-game-footer info-bar">
+                <div class="match-stats">
+                    <app-stopwatch [hero]="hero"></app-stopwatch>
+                    <app-difference-count [hero]="hero" [player]="1" [getPlayerName]="getPlayerName"></app-difference-count>
+                </div>
+                <div class="hints">
+                    <h2>Indices</h2>
+                    <div class="hint-icons">
+                        <mat-icon
+                            class="hint-icon"
+                            matTooltip="Indice 1"
+                            [matTooltipPosition]="'above'"
+                            [color]="hero.hintsUsed >= 1 ? 'gray' : 'accent'"
+                            >key</mat-icon
+                        >
+                        <mat-icon
+                            class="hint-icon"
+                            matTooltip="Indice 2"
+                            [matTooltipPosition]="'above'"
+                            [color]="hero.hintsUsed >= 2 ? 'gray' : 'accent'"
+                            >key</mat-icon
+                        >
+                        <mat-icon
+                            class="hint-icon"
+                            matTooltip="Indice 3"
+                            [matTooltipPosition]="'above'"
+                            [color]="hero.hintsUsed >= 3 ? 'gray' : 'accent'"
+                            >key</mat-icon
+                        >
+                    </div>
+                    <button mat-raised-button color="accent" (click)="playArea.getClue()" [disabled]="hero.hintsUsed >= 3">Demander un indice</button>
+                </div>
+            </div>
+            <div *ngIf="hero.multiplayer && !this.replayService.isDisplaying" class="multi-game-footer info-bar">
+                <app-stopwatch [hero]="hero"></app-stopwatch>
+                <app-difference-count [hero]="hero" [player]="1" [getPlayerName]="getPlayerName"></app-difference-count>
+                <app-difference-count [hero]="hero" [player]="2" [getPlayerName]="getPlayerName"></app-difference-count>
+            </div>
+            <div *ngIf="this.replayService.isDisplaying" class="replay">
+                <button mat-icon-button (click)="this.replayService.reset()">
+                    <mat-icon>fast_rewind</mat-icon>
+                </button>
+                <button mat-icon-button (click)="this.replayService.toggleReplay()">
+                    <mat-icon>{{ this.replayService.isPause ? 'play_arrow' : 'pause' }}</mat-icon>
+                </button>
+                <span>{{ this.time.format(this.replayService.getProgressTime()) }}</span>
+                <mat-progress-bar
+                    mode="determinate"
+                    [value]="this.replayService.progressTime/this.replayService.gameTime * 100"
+                ></mat-progress-bar>
+                <span>{{ this.time.format(this.replayService.getGameTime()) }}</span>
+                <mat-button-toggle-group [(ngModel)]="this.replayService.replaySpeedValue">
+                    <mat-button-toggle value="1">x1</mat-button-toggle>
+                    <mat-button-toggle value="2">x2</mat-button-toggle>
+                    <mat-button-toggle value="3">x3</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </mat-card>
+    </div>
+    <mat-card class="sidebar">
+        <app-messages [multiplayerOn]="hero.multiplayer" [getPlayerName]="getPlayerName" [hero]="this.hero"> </app-messages>
+    </mat-card>
+</div>

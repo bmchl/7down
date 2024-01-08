@@ -1,0 +1,20 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "./client"
+        },
+        {
+            "path": "./server"
+        },
+        {
+            "path": "./common"
+        }
+    ],
+    "settings": {
+        "hide-files.files": [],
+        "liveServer.settings.multiRootWorkspaceName": "LOG2990-306"
+    }
+}

@@ -1,0 +1,16 @@
+<div class="container">
+    <app-header [hideBack]="false" title="Configuration"></app-header>
+    <div class="config-tools">
+        <button mat-button [routerLink]="['/history']"><mat-icon>history</mat-icon> Historique de jeu</button>
+        <button mat-button routerLink="/create"><mat-icon>library_add</mat-icon> Nouveau jeu</button>
+        <button mat-button (click)="this.dialogService.openConstantsDialog()"><mat-icon>timer</mat-icon> Constantes de jeu</button>
+        <button mat-icon-button matTooltip="Remise des données à leur état initial" [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+            <button (click)="this.deleteAllGames()" mat-menu-item>Supprimer toutes les fiches de jeu</button>
+            <button (click)="this.resetTimes()" mat-menu-item>Réinitialiser tous les meilleurs temps</button>
+            <button (click)="this.resetConsts()" mat-menu-item>Réinitialiser les 3 constantes de jeu</button>
+            <button (click)="this.resetGameHistory()" mat-menu-item>Effacer l'historique des parties jouées</button>
+        </mat-menu>
+    </div>
+    <app-config-select-content [configOn]="true"></app-config-select-content>
+</div>

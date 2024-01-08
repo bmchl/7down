@@ -1,0 +1,8 @@
+<h2 *ngIf="hero.mode !== 'tl'">
+    Différences trouvées par <span [ngStyle]="{ color: player === 1 ? 'orangered' : 'royalblue' }">{{ getPlayerName(player) }}</span>
+</h2>
+<h2 *ngIf="hero.mode === 'tl'">Fiches parcourues</h2>
+<mat-card-title
+    >{{ player === 2 ? hero.differencesFound2 : hero.differencesFound1 }} /
+    {{ this.hero.multiplayer ? roundNumber(hero.differenceCount / 2) : hero.differenceCount }}</mat-card-title
+>

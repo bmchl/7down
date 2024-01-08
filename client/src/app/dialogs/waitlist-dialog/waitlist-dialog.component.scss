@@ -1,0 +1,38 @@
+mat-dialog-content {
+    width: 100%;
+}
+mat-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+mat-list-item {
+    width: 100%;
+}
+.waitlist-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.joiner {
+    height: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.player-name {
+    height: inherit;
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    p {
+        align-self: center;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+}

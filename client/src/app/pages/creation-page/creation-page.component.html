@@ -1,0 +1,148 @@
+<div class="page">
+    <app-header title="Création d'un nouveau jeu"></app-header>
+    <div class="title-bar">
+        <p>
+            Veuillez choisir un rayon d'élargissement:
+            <mat-slider
+                color="primary"
+                thumbLabel
+                min="0"
+                max="3"
+                step="1"
+                value="1"
+                showTickMarks
+                discrete
+                [displayWith]="formatLabel"
+                (change)="onRadiusSelect($event)"
+            >
+                <input matSliderThumb />
+            </mat-slider>
+            <span> Rayon selectionné: {{ this.radius }}</span>
+        </p>
+        <button mat-raised-button class="submit-button" color="primary" (click)="onSubmitClick()" #submitButton>
+            Valider et Créer <mat-icon>arrow_forward</mat-icon>
+        </button>
+    </div>
+    <div class="container justified">
+        <div class="content">
+            <div class="left-panel">
+                <div class="image-preview">
+                    <h2>Image principale</h2>
+                    <div class="box">
+                        <img [src]="url0" #leftBaseImage style="max-width: 100%; max-height: 100%; position: absolute; z-index: -1" />
+                        <canvas height="480" width="640" id="leftMergedImage" #leftMergedImage style="display: none"></canvas>
+                        <input id="file0" type="file" (change)="onSelectFile($event, 0)" />
+                        <app-edit-area side="left"></app-edit-area>
+                    </div>
+                    <div class="action-buttons">
+                        <button mat-fab matTooltip="Téléversement d'un arrière-plan de format BMP et de taille 640x480 uniquement" color="primary">
+                            <label for="file0">
+                                <mat-icon>file_upload</mat-icon>
+                            </label>
+                        </button>
+                        <button mat-fab color="primary">
+                            <mat-icon matTooltip="Dupliquer cet avant-plan">file_copy</mat-icon>
+                        </button>
+                        <button mat-fab color="primary" class="reset-fl" (click)="toolsService.resetContext('left', true)">
+                            <mat-icon matTooltip="Réinitialiser l'avant-plan">restore_page</mat-icon>
+                        </button>
+                        <button [disabled]="!url0" mat-fab color="warn" (click)="deleteImg(0)">
+                            <mat-icon matTooltip="Effacer l'arrière-plan et l'avant-plan">delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="bulk-controls">
+                    <button [disabled]="!url0 || !url1" mat-mini-fab color="primary" class="switch-button" (click)="switch()">
+                        <mat-icon matTooltip="Échanger les arrière-plans" [matTooltipPosition]="'above'">compare_arrows</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="primary" class="bi-upload">
+                        <label for="multi-upload">
+                            <mat-icon matTooltip="Téléversement de la même image de format BMP et de taille 640x480 uniquement"
+                                >file_upload</mat-icon
+                            ></label
+                        >
+                        <input id="multi-upload" style="display: none" type="file" (change)="onSelectFile($event, 2)" />
+                    </button>
+                    <button mat-mini-fab color="primary" class="switch-button" (click)="toolsService.swapContexts()">
+                        <mat-icon matTooltip="Échanger les avant-plans" [matTooltipPosition]="'above'">compare_arrows</mat-icon>
+                    </button>
+                    <button
+                        [disabled]="toolsService.statesPos === 0"
+                        mat-mini-fab
+                        color="primary"
+                        class="switch-button"
+                        (click)="toolsService.undo()"
+                    >
+                        <mat-icon matTooltip="Annuler" [matTooltipPosition]="'above'">undo</mat-icon>
+                    </button>
+                    <button
+                        [disabled]="toolsService.statesPos === toolsService.states.length - 1"
+                        mat-mini-fab
+                        color="primary"
+                        class="switch-button"
+                        (click)="toolsService.redo()"
+                    >
+                        <mat-icon matTooltip="Refaire" [matTooltipPosition]="'above'">redo</mat-icon>
+                    </button>
+                </div>
+                <div class="image-preview">
+                    <h2>Image modifiée</h2>
+                    <div class="box">
+                        <img [src]="url1" #rightBaseImage style="max-width: 100%; max-height: 100%; position: absolute; z-index: -1" />
+                        <canvas height="480" width="640" id="rightMergedImage" #rightMergedImage style="display: none"></canvas>
+                        <input id="file1" type="file" (change)="onSelectFile($event, 1)" />
+                        <app-edit-area side="right"></app-edit-area>
+                    </div>
+                    <div class="action-buttons">
+                        <button matTooltip="Téléversement d'un arrière-plan de format BMP et de taille 640x480 uniquement" mat-fab color="primary">
+                            <label for="file1">
+                                <mat-icon>file_upload</mat-icon>
+                            </label>
+                        </button>
+                        <button mat-fab color="primary" (click)="toolsService.duplicateContext('right')">
+                            <mat-icon matTooltip="Dupliquer cet avant-plan">file_copy</mat-icon>
+                        </button>
+                        <button mat-fab color="primary" class="reset-fl" (click)="toolsService.resetContext('right', true)">
+                            <mat-icon matTooltip="Réinitialiser l'avant-plan">restore_page</mat-icon>
+                        </button>
+                        <button [disabled]="!url1" mat-fab color="warn" (click)="deleteImg(1)">
+                            <mat-icon matTooltip="Effacer l'arrière-plan et l'avant-plan">delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="right-panel">
+                <h2>Outils de dessin</h2>
+                <div class="tools">
+                    <div class="category pen">
+                        <button mat-fab [color]="toolsService.pencilColor" class="draw-tool" (click)="toolsService.pencilInitialize()">
+                            <mat-icon matTooltip="Crayon">edit</mat-icon>
+                        </button>
+                        <div class="info">
+                            <mat-slider thumbLabel min="1" max="10" value="1" color="primary" (change)="onPencilSelect($event)">
+                                <input matSliderThumb />
+                            </mat-slider>
+                            <input [(colorPicker)]="toolsService.color0" [style.background]="toolsService.color0" />
+                        </div>
+                    </div>
+                    <div class="category eraser">
+                        <button mat-fab [color]="toolsService.eraserColor" class="draw-tool" (click)="toolsService.eraserInitialize()">
+                            <mat-icon matTooltip="Gomme à effacer">how_to_vote</mat-icon>
+                        </button>
+                        <div class="info">
+                            <mat-slider thumbLabel min="1" max="10" value="1" color="primary" (change)="onEraserSelect($event)">
+                                <input matSliderThumb />
+                            </mat-slider>
+                        </div>
+                    </div>
+                    <div class="category rectangle">
+                        <button mat-fab [color]="toolsService.rectangleColor" class="draw-tool" (click)="toolsService.rectangleInitialize()">
+                            <mat-icon matTooltip="Rectangle">crop_rectangle</mat-icon>
+                        </button>
+                        <input [(colorPicker)]="toolsService.color1" [style.background]="toolsService.color1" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

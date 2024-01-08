@@ -1,0 +1,5 @@
+<mat-grid-list cols="2" rowHeight="fit">
+    <mat-grid-tile *ngFor="let game of gameList | slice: 0 + pageNumber * 4:4 + pageNumber * 4">
+        <app-game-item [constants]="constants" [game]="game" [configOn]="this.configOn"> </app-game-item>
+    </mat-grid-tile>
+</mat-grid-list>

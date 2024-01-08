@@ -1,0 +1,30 @@
+<mat-card-header>
+    <mat-card-title
+        >Jeu <span>{{ hero.name }}</span></mat-card-title
+    >
+    <button *ngIf="!this.hero.isOver" mat-raised-button color="warn" (click)="triggerQuitDialog()">Abandonner</button>
+    <button *ngIf="this.hero.isOver" mat-raised-button color="primary" routerLink="/">Revenir à la page principale</button>
+</mat-card-header>
+<mat-card-content>
+    <ul>
+        <li>
+            Mode de jeu: <span>{{ hero.mode === 'tl' ? 'Temps limité' : 'Classique' }}</span>
+        </li>
+        <li *ngIf="hero.mode !== 'tl'">
+            Niveau de difficulté:
+            <span [ngStyle]="{ color: hero.difficulty === 10 ? 'red' : 'green' }">{{ hero.difficulty === 10 ? 'DIFFICILE' : 'FACILE' }}</span>
+        </li>
+        <li *ngIf="hero.differenceCount && hero.mode !== 'tl'">
+            Nombres de différences totales: <span>{{ hero.differenceCount }}</span>
+        </li>
+        <li *ngIf="hero.differenceCount && hero.mode === 'tl'">
+            Nombres de fiches totales: <span>{{ hero.differenceCount }}</span>
+        </li>
+        <li *ngIf="hero.penalty">
+            Pénalité par indice utilisé: <span>{{ hero.penalty }} secondes</span>
+        </li>
+        <li *ngIf="hero.gain">
+            Gain par différence trouvée:<span> {{ hero.gain }} secondes</span>
+        </li>
+    </ul>
+</mat-card-content>

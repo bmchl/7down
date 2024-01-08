@@ -1,0 +1,49 @@
+<app-header [hideBack]="true" title="Partie de jeu"></app-header>
+<div class="back">
+    <div class="container">
+        <mat-card class="game-header info-bar">
+            <app-game-info [hero]="this.hero" [abandonGame]="abandonGame"></app-game-info>
+        </mat-card>
+        <div [ngClass]="{ ignoreClick: this.hero.isOver }">
+            <section class="play-area-container">
+                <app-play-area
+                    [isTimeLimited]="true"
+                    [hero]="hero"
+                    [differences]="differences"
+                    [images]="gameImages"
+                    class="play-area"
+                    tabindex="0"
+                ></app-play-area>
+            </section>
+        </div>
+        <mat-card *ngIf="!hero.multiplayer" class="solo-game-footer info-bar">
+            <div class="match-stats">
+                <app-stopwatch [hero]="hero" [timerEnd]="timerEnd"></app-stopwatch>
+                <app-difference-count [hero]="hero" [player]="1" [getPlayerName]="getPlayerName"></app-difference-count>
+            </div>
+            <div class="hints">
+                <h2>Indices</h2>
+                <div class="hint-icons">
+                    <mat-icon class="hint-icon" matTooltip="Indice 1" [matTooltipPosition]="'above'" [color]="hero.hintsUsed >= 1 ? 'gray' : 'accent'"
+                        >key</mat-icon
+                    >
+                    <mat-icon class="hint-icon" matTooltip="Indice 2" [matTooltipPosition]="'above'" [color]="hero.hintsUsed >= 2 ? 'gray' : 'accent'"
+                        >key</mat-icon
+                    >
+                    <mat-icon class="hint-icon" matTooltip="Indice 3" [matTooltipPosition]="'above'" [color]="hero.hintsUsed >= 3 ? 'gray' : 'accent'"
+                        >key</mat-icon
+                    >
+                </div>
+                <button mat-raised-button color="accent" (click)="playArea.getClue()" [disabled]="hero.hintsUsed >= 3">Demander un indice</button>
+            </div>
+        </mat-card>
+        <mat-card *ngIf="hero.multiplayer" class="multi-game-footer info-bar">
+            <app-stopwatch [hero]="hero" [timerEnd]="timerEnd"></app-stopwatch>
+            <app-difference-count [hero]="hero" [player]="1" [getPlayerName]="getPlayerName"></app-difference-count>
+            Player 1: {{ getPlayerName(1) }} <br />Player 2: {{ getPlayerName(2) }}
+        </mat-card>
+    </div>
+    <mat-card class="sidebar">
+        <app-messages [multiplayerOn]="!isSolo" [getPlayerName]="getPlayerName" [hero]="this.hero"> </app-messages>
+    </mat-card>
+</div>

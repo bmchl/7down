@@ -1,0 +1,13 @@
+.page-container {
+    margin: auto;
+    width: 100vw;
+    height: 95vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.dir-button {
+    display: flex;
+    justify-content: center;
+}

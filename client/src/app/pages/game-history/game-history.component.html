@@ -1,0 +1,84 @@
+<app-header [hideBack]="false" title="Historique de jeu"></app-header>
+<div class="back">
+    <section class="header">
+        <button mat-flat-button color="warn" [disabled]="this.matches.length === 0" aria-label="Delete" (click)="deleteHistory()">
+            <mat-icon>delete</mat-icon> Effacer l'historique de jeu
+        </button>
+    </section>
+    <section class="history">
+        <table mat-table [dataSource]="this.matches" class="mat-elevation-z8 history-table">
+            <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef>Date de début</th>
+                <td mat-cell *matCellDef="let match">{{ match.formattedStartDate }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="startTime">
+                <th mat-header-cell *matHeaderCellDef>Heure de début</th>
+                <td mat-cell *matCellDef="let match">{{ match.responseTime }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="gameMode">
+                <th mat-header-cell *matHeaderCellDef>Mode de jeu</th>
+                <td mat-cell *matCellDef="let match">{{ match.gameMode }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="playerMode">
+                <th mat-header-cell *matHeaderCellDef>Nombre de joueurs</th>
+                <td mat-cell *matCellDef="let match">{{ match.playerMode }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="player1">
+                <th mat-header-cell *matHeaderCellDef>Joueur 1</th>
+                <td mat-cell *matCellDef="let match">
+                    <span
+                        [ngStyle]="{
+                            'text-decoration': match.playerAbandoned && match.playerAbandoned === match.player0 ? 'line-through' : 'none',
+                            'font-weight':
+                                (match.winner === match.player0 || (match.playerAbandoned && match.playerAbandoned !== match.player0)) &&
+                                match.player0 !== 'N/A'
+                                    ? 'bold'
+                                    : 'normal' ||
+                                      (match.playerAbandoned && match.playerAbandoned === match.player0 && match.timeLimit && match.solo
+                                          ? 'line-through'
+                                          : 'bold')
+                        }"
+                    >
+                        {{ match.player0 }}
+                    </span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="player2">
+                <th mat-header-cell *matHeaderCellDef>Joueur 2</th>
+                <td mat-cell *matCellDef="let match">
+                    <span
+                        [ngStyle]="{
+                            'text-decoration': match.playerAbandoned && match.playerAbandoned === match.player1 ? 'line-through' : 'none',
+                            'font-weight':
+                                (match.winner === match.player1 || (match.playerAbandoned && match.playerAbandoned !== match.player1)) &&
+                                match.player1 !== 'N/A'
+                                    ? 'bold'
+                                    : 'normal'
+                        }"
+                    >
+                        {{ match.player1 }}
+                    </span>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="gameTime">
+                <th mat-header-cell *matHeaderCellDef>Temps de jeu</th>
+                <td mat-cell *matCellDef="let match">{{ match.gameTime }}</td>
+            </ng-container>
+
+            <!-- <ng-container matColumnDef="elapsedTime">
+                <th mat-header-cell *matHeaderCellDef>Test</th>
+                <td mat-cell *matCellDef="let match">{{ match.elapsedTime }}</td>
+            </ng-container> -->
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <span *ngIf="this.matches.length === 0">Aucune partie jouée</span>
+    </section>
+</div>
