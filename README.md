@@ -1,7 +1,5 @@
 # 7Down - Find-The-Difference Game
 
-![7Down](7down.png)
-
 Welcome to the Find The Difference Game repository – a web app built with TypeScript, Angular, Node.js, Express, and Firebase, with a mobile client developed in Flutter and Dart. This multiplayer game challenges users to identify differences between two images, featuring a robust backend with Socket.IO for real-time communication. The game creation system includes drawing tools for image manipulation, and data persistence is managed through Firebase. The app was originally deployed on GitLab Pages and AWS.
 
 ## Project Structure
@@ -66,6 +64,28 @@ The codebase consists of multiple clients and a single server:
 -   **Mobile Support**: Play on Android with dedicated Flutter client
 -   **Drawing Tools**: Edit and create game images
 -   **Leaderboards**: Track high scores and game stats
+
+## Screenshots
+
+### Web Application
+
+#### Game Selection Screen
+
+![Game Selection Screen](7down-web-select.png)
+
+#### Gameplay
+
+![Web Gameplay](7down-web-gamplay.png)
+
+### Android Application
+
+#### Game Selection
+
+![Android Selection](7down-android-select.png)
+
+#### Gameplay
+
+![Android Gameplay](7down-android-gameplay.png)
 
 ## Technologies
 
