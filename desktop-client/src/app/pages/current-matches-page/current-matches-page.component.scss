@@ -1,0 +1,23 @@
+.chat-container {
+    position: fixed;
+    margin-top: 31%;
+    left: 68%;
+    width: 30%;
+    height: 50%;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.chat-container.minimized {
+    bottom: 0;
+    height: 5vh;
+    background-color: #8f84ca;
+    bottom: 2%;
+    right: 2%;
+}
+
+.toggleChatBtn {
+    z-index: 3000;
+}

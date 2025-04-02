@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<mat-form-field appearance="fill">
+    <mat-label>{{ data.inputLabel }}</mat-label>
+    <input required onkeypress="return /[a-zA-Z]/i.test(event.key)" maxlength="10" matInput [(ngModel)]="data.input" />
+    <mat-hint align="end">{{ data.input.length }}/10</mat-hint>
+</mat-form-field>
+<span mat-dialog-actions [align]="'end'">
+    <button mat-button (click)="this.dialogRef.close(false)">{{ data.cancel }}</button>
+    <button mat-button [disabled]="data.input === ''" (click)="this.dialogRef.close(true)">{{ data.confirm }}</button>
+</span>

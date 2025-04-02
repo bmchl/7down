@@ -1,0 +1,27 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "./android-client"
+        },
+        {
+            "path": "./desktop-client"
+        },
+        {
+            "path": "./common"
+        },
+        {
+            "path": "./server"
+        },
+        {
+            "path": "./static"
+        }
+    ],
+    "settings": {
+        "hide-files.files": [],
+        "liveServer.settings.multiRootWorkspaceName": "LOG3900-205",
+        "java.configuration.updateBuildConfiguration": "interactive"
+    }
+}

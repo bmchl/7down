@@ -1,0 +1,202 @@
+.bg-white,
+.toggle-dark-mode,
+.buttonGlobalChat,
+.middle-section,
+.side-section,
+.text-logout,
+.text-chat,
+.text-setting,
+.text-profile,
+.text-content,
+#chatWindow,
+.chat-input-section mat-form-field.message-box,
+.chat-message,
+.user-profile,
+.Title,
+.active-user-count,
+.CreateChatRoom,
+.addUserToRoom,
+.chooseRoom,
+.enterRoomCode,
+.toggle-section,
+.buttonAddUserRoom,
+.message-text,
+.detachBtn {
+    border-radius: 8px;
+}
+
+.account-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    .avatar-section {
+        margin-bottom: 20px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .avatar {
+            width: 100px; /* Adjust size as needed */
+            height: 100px; /* Adjust size as needed */
+            border-radius: 50%; /* Makes it circular */
+            // overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ccc; /* Add a background color as a fallback */
+
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: cover; /* Cover the entire circle */
+                border-radius: 50%; /* Ensure the image inside the circle */
+            }
+        }
+
+        // mat-icon {
+        //     font-size: 100px;
+        //     color: #8a2be2; /* Add color for the icon */
+        // }
+
+        input[type='file'] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .delete-avatar-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            padding: 5px 10px;
+            background-color: #ff6347; /* Red color for delete button */
+            color: #fff; /* White text color */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    }
+
+    .username-section,
+    .hometown-section {
+        margin-bottom: 20px;
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #8a2be2; /* Purple color for labels */
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+
+            &:focus {
+                outline: none;
+                border-color: #8a2be2; /* Highlight border color on focus */
+            }
+        }
+    }
+
+    .statistics-section {
+        text-align: left;
+
+        h2 {
+            color: #8a2be2; /* Purple color for headings */
+        }
+    }
+
+    .logout-button {
+        margin-left: 2%;
+        width: auto;
+        padding: 8px 16px;
+        background-color: #c41e3a;
+        color: white;
+        text-align: center;
+        z-index: 1;
+    }
+}
+
+.middle-section,
+.side-section {
+    background-color: #e0ddf0;
+}
+
+.text-logout,
+.text-chat,
+.text-setting,
+.text-profile,
+.text-content,
+.Title,
+.active-user-count,
+.toggle-section {
+    color: #01003c;
+    opacity: 0.8;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+}
+
+.text-chat:hover {
+    background-color: #8f84ca;
+    border-radius: 35px;
+}
+
+.chat-message,
+.message-text {
+    background-color: #b0bec5;
+    color: #ffffff;
+    border: none;
+}
+
+.message-right .message-text {
+    background-color: #9fa8da;
+}
+
+.avatar {
+    border: 2px solid #8f84ca;
+}
+
+.text-logout:hover,
+.text-profile:hover,
+.text-chat:hover,
+.detachBtn:hover,
+.buttonAddUserRoom:hover,
+.CreateChatRoom:hover,
+.addUserToRoom:hover,
+.chooseRoom:hover,
+.enterRoomCode:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+::placeholder {
+    color: #adb5bd;
+    opacity: 1;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+}
+
+:-ms-input-placeholder {
+    color: #adb5bd;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+}
+
+::-ms-input-placeholder {
+    color: #adb5bd;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+}
+
+.friends-tabs {
+    .mat-tab-label {
+        width: 50% !important;
+    }
+}

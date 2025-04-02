@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>{{ 'Game constants' | translate }}</h1>
+<div mat-dialog-content>
+    <p>{{ 'These values are applied to all existing games' | translate }}</p>
+    <form [formGroup]="myForm">
+        <p>
+            <mat-form-field appearance="fill" disabled="true">
+                <mat-label>{{ 'Initial time of the countdown' | translate }}</mat-label>
+                <input matInput type="number" id="initialTime" formControlName="initialTime" />
+                <mat-icon matPrefix>timer</mat-icon>
+                <span matSuffix>{{ 'seconds' | translate }}</span>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="fill" disabled="true">
+                <mat-label>{{ 'Penalty time for using a hint' | translate }}</mat-label>
+                <input matInput type="number" id="penalty" formControlName="penalty" />
+                <mat-icon matPrefix>alarm_off</mat-icon>
+                <span matSuffix>{{ 'seconds' | translate }}</span>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field appearance="fill" disabled="true">
+                <mat-label>{{ 'Won time for finding a difference' | translate }}</mat-label>
+                <input matInput type="number" id="timeGainPerDiff" formControlName="timeGainPerDiff" />
+                <mat-icon matPrefix>alarm_add</mat-icon>
+                <span matSuffix>{{ 'seconds' | translate }}</span>
+            </mat-form-field>
+        </p>
+    </form>
+</div>
+<span mat-dialog-actions [align]="'end'">
+    <button mat-button [mat-dialog-close]="false">{{ 'Close' | translate }}</button>
+    <button mat-button cdkFocusInitial (click)="saveConsts()">{{ 'Save modifications' | translate }}</button>
+</span>

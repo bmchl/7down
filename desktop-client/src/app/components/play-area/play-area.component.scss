@@ -1,0 +1,38 @@
+canvas {
+    flex: 15%;
+    padding: 0.098rem;
+}
+.comparison-grid {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.draw-container {
+    position: relative;
+    span {
+        color: red;
+        font-size: 1rem;
+        position: absolute;
+        z-index: 100;
+        width: 100px;
+        height: 24px;
+    }
+}
+
+.grid-area {
+    align-self: auto;
+    position: relative;
+    height: inherit;
+}
+
+.play-area {
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+}

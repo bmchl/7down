@@ -1,0 +1,15 @@
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<div class="container" *ngIf="!passwordEntered">
+    <app-sidebar></app-sidebar>
+    <div class="password-form">
+        <input type="password" [(ngModel)]="passwordInput" placeholder="{{ 'Enter password' | translate }}" />
+        <button (click)="checkPassword()">{{ 'Submit' | translate }}</button>
+    </div>
+</div>
+
+<div class="container" *ngIf="passwordEntered">
+    <app-sidebar></app-sidebar>
+    <app-config-select-content [configOn]="true"></app-config-select-content>
+</div>

@@ -1,0 +1,167 @@
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<div class="page">
+    <app-header title="{{ 'Create New Game' | translate }}"></app-header>
+    <div class="title-bar">
+        <p>
+            {{ 'Please choose an expansion radius:' | translate }}
+            <mat-slider
+                color="primary"
+                thumbLabel
+                min="0"
+                max="3"
+                step="1"
+                value="1"
+                showTickMarks
+                discrete
+                [displayWith]="formatLabel"
+                (change)="onRadiusSelect($event)"
+            >
+                <input matSliderThumb />
+            </mat-slider>
+            <span>{{ 'Selected Radius:' | translate }} {{ this.radius }}</span>
+        </p>
+        <button mat-raised-button class="submit-button" color="primary" (click)="onSubmitClick()" #submitButton>
+            {{ 'Validate and Create' | translate }} <mat-icon>arrow_forward</mat-icon>
+        </button>
+    </div>
+    <div class="container justified">
+        <div class="content">
+            <div class="left-panel">
+                <div class="image-preview">
+                    <h2>{{ 'Main Image' | translate }}</h2>
+                    <div class="box">
+                        <img [src]="url0" #leftBaseImage style="max-width: 100%; max-height: 100%; position: absolute; z-index: -1" />
+                        <canvas height="480" width="640" id="leftMergedImage" #leftMergedImage style="display: none"></canvas>
+                        <input id="file0" type="file" (change)="onSelectFile($event, 0)" />
+                        <app-edit-area side="left"></app-edit-area>
+                    </div>
+                    <div class="action-buttons">
+                        <button
+                            mat-fab
+                            matTooltip="{{ 'Upload a background image in BMP format and size 640x480 only' | translate }}"
+                            color="primary"
+                        >
+                            <label for="file0">
+                                <mat-icon>file_upload</mat-icon>
+                            </label>
+                        </button>
+                        <button mat-fab color="primary">
+                            <mat-icon matTooltip="{{ 'Duplicate this foreground' | translate }}">file_copy</mat-icon>
+                        </button>
+                        <button mat-fab color="primary" class="reset-fl" (click)="toolsService.resetContext('left', true)">
+                            <mat-icon matTooltip="{{ 'Reset the foreground' | translate }}">restore_page</mat-icon>
+                        </button>
+                        <button [disabled]="!url0" mat-fab color="warn" (click)="deleteImg(0)">
+                            <mat-icon matTooltip="{{ 'Clear background and foreground' | translate }}">delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="bulk-controls">
+                    <button [disabled]="!url0 || !url1" mat-mini-fab color="primary" class="switch-button" (click)="switch()">
+                        <mat-icon matTooltip="{{ 'Switch backgrounds' | translate }}" [matTooltipPosition]="'above'">compare_arrows</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="primary" class="bi-upload">
+                        <label for="multi-upload">
+                            <mat-icon matTooltip="{{ 'Upload the same image in BMP format and size 640x480 only' | translate }}"
+                                >file_upload</mat-icon
+                            ></label
+                        >
+                        <input id="multi-upload" style="display: none" type="file" (change)="onSelectFile($event, 2)" />
+                    </button>
+                    <button mat-mini-fab color="primary" class="switch-button" (click)="toolsService.swapContexts()">
+                        <mat-icon matTooltip="{{ 'Switch foregrounds' | translate }}" [matTooltipPosition]="'above'">compare_arrows</mat-icon>
+                    </button>
+                    <button
+                        [disabled]="toolsService.statesPos === 0"
+                        mat-mini-fab
+                        color="primary"
+                        class="switch-button"
+                        (click)="toolsService.undo()"
+                    >
+                        <mat-icon matTooltip="{{ 'Undo' | translate }}" [matTooltipPosition]="'above'">undo</mat-icon>
+                    </button>
+                    <button
+                        [disabled]="toolsService.statesPos === toolsService.states.length - 1"
+                        mat-mini-fab
+                        color="primary"
+                        class="switch-button"
+                        (click)="toolsService.redo()"
+                    >
+                        <mat-icon matTooltip="{{ 'Redo' | translate }}" [matTooltipPosition]="'above'">redo</mat-icon>
+                    </button>
+                </div>
+                <div class="image-preview">
+                    <h2>{{ 'Modified Image' | translate }}</h2>
+                    <div class="box">
+                        <img [src]="url1" #rightBaseImage style="max-width: 100%; max-height: 100%; position: absolute; z-index: -1" />
+                        <canvas height="480" width="640" id="rightMergedImage" #rightMergedImage style="display: none"></canvas>
+                        <input id="file1" type="file" (change)="onSelectFile($event, 1)" />
+                        <app-edit-area side="right"></app-edit-area>
+                    </div>
+                    <div class="action-buttons">
+                        <button
+                            matTooltip="{{ 'Upload a background image in BMP format and size 640x480 only' | translate }}"
+                            mat-fab
+                            color="primary"
+                        >
+                            <label for="file1">
+                                <mat-icon>file_upload</mat-icon>
+                            </label>
+                        </button>
+                        <button mat-fab color="primary" (click)="toolsService.duplicateContext('right')">
+                            <mat-icon matTooltip="{{ 'Duplicate this foreground' | translate }}">file_copy</mat-icon>
+                        </button>
+                        <button mat-fab color="primary" class="reset-fl" (click)="toolsService.resetContext('right', true)">
+                            <mat-icon matTooltip="{{ 'Reset the foreground' | translate }}">restore_page</mat-icon>
+                        </button>
+                        <button [disabled]="!url1" mat-fab color="warn" (click)="deleteImg(1)">
+                            <mat-icon matTooltip="{{ 'Clear background and foreground' | translate }}">delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="right-panel">
+                <h2>{{ 'Drawing Tools' | translate }}</h2>
+                <div class="tools">
+                    <div class="category pen">
+                        <button mat-fab [color]="toolsService.pencilColor" class="draw-tool" (click)="toolsService.pencilInitialize()">
+                            <mat-icon matTooltip="{{ 'Pencil' | translate }}">edit</mat-icon>
+                        </button>
+                        <div class="info">
+                            <mat-slider thumbLabel min="1" max="10" value="1" color="primary" (change)="onPencilSelect($event)">
+                                <input matSliderThumb />
+                            </mat-slider>
+                            <input [(colorPicker)]="toolsService.color0" [style.background]="toolsService.color0" />
+                        </div>
+                    </div>
+                    <div class="category eraser">
+                        <button mat-fab [color]="toolsService.eraserColor" class="draw-tool" (click)="toolsService.eraserInitialize()">
+                            <mat-icon matTooltip="{{ 'Eraser' | translate }}">how_to_vote</mat-icon>
+                        </button>
+                        <div class="info">
+                            <mat-slider thumbLabel min="1" max="10" value="1" color="primary" (change)="onEraserSelect($event)">
+                                <input matSliderThumb />
+                            </mat-slider>
+                        </div>
+                    </div>
+                    <div class="category">
+                        <button mat-fab [color]="toolsService.rectangleColor" class="draw-tool" (click)="toolsService.rectangleInitialize()">
+                            <mat-icon matTooltip="Rectangle">crop_rectangle</mat-icon>
+                        </button>
+                        <input [(colorPicker)]="toolsService.color1" [style.background]="toolsService.color1" />
+                    </div>
+                    <div class="category">
+                        <button mat-fab [color]="toolsService.ovalColor" class="draw-tool" (click)="toolsService.ovalInitialize()">
+                            <mat-icon matTooltip="Oval"
+                                ><div id="oval_parent"><div id="oval"></div></div
+                            ></mat-icon>
+                        </button>
+                        <input [(colorPicker)]="toolsService.color2" [style.background]="toolsService.color2" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{ 'Waitlist' | translate }}</h1>
+
+<div mat-dialog-content>
+    <p>{{ 'Please accept or refuse a player.' | translate }}</p>
+    <mat-list>
+        <mat-divider></mat-divider>
+        <mat-list-item *ngFor="let joiner of filteredJoiners">
+            <div class="joiner">
+                <span class="player-name">
+                    <mat-icon matListIcon>person</mat-icon>
+                    <p [ngStyle]="{ 'text-decoration': joiner.denied ? 'line-through' : 'none' }">{{ joiner.name }}</p>
+                </span>
+                <span class="waitlist-buttons">
+                    <button mat-icon-button color="primary" [disabled]="joiner.accepted" (click)="accept(joiner)">
+                        <mat-icon>check</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" [disabled]="joiner.denied" (click)="deny(joiner)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </span>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-list-item>
+    </mat-list>
+</div>
+
+<span mat-dialog-actions [align]="'end'">
+    <button mat-button cdkFocusInitial (click)="this.dialogRef.close(false)">{{ 'Cancel' | translate }}</button>
+</span>

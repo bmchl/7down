@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{ 'Create a match' | translate }}</h1>
+<mat-dialog-content class="overflow-hidden">
+    <mat-form-field appearance="fill" class="w-full">
+        <mat-label>{{ 'Game Duration' | translate }}</mat-label>
+        <input required  type="number" matInput [(ngModel)]="data.gameDuration" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="w-full" *ngIf="data.gameMode === 'time-limit'">
+        <mat-label>{{ 'Bonus Time on Hit' | translate }}</mat-label>
+        <input required  type="number" matInput [(ngModel)]="data.bonusTimeOnHit" />
+    </mat-form-field>
+    <span class="player-count">
+        <mat-button-toggle-group [(ngModel)]="this.data.visibility">
+            <mat-button-toggle [value]="undefined">Everyone</mat-button-toggle>
+            <mat-button-toggle value="friendsOnly">Friends</mat-button-toggle>
+            <mat-button-toggle value="friendsOfFriends">Friends of friends</mat-button-toggle>
+        </mat-button-toggle-group>
+    </span>
+    <mat-checkbox [(ngModel)]="data.cheatAllowed" class="mt-2 text-lg">{{ 'Cheat Mode' | translate }}</mat-checkbox>
+</mat-dialog-content>
+<span mat-dialog-actions [align]="'end'">
+    <button mat-button (click)="this.dialogRef.close(false)">{{ 'Cancel' | translate }}</button>
+    <button
+        mat-button
+        [disabled]="data.gameDuration === undefined || data.gameDuration === 0 || data.gameDuration === undefined"
+        (click)="this.dialogRef.close(true)"
+    >
+        {{ 'Start' | translate }}
+    </button>
+</span>

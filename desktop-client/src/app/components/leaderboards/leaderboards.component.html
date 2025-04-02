@@ -1,0 +1,37 @@
+<mat-tab-group>
+    <mat-tab label="Solo">
+        <table mat-table [dataSource]="solo" class="mat-elevation-z0">
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef>{{ 'Top' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ solo.indexOf(element) + 1 }}</td>
+            </ng-container>
+            <ng-container matColumnDef="player-name">
+                <th mat-header-cell *matHeaderCellDef>{{ 'Player' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.playerName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="record-time">
+                <th mat-header-cell *matHeaderCellDef>{{ 'Time' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ this.time.format(element.recordTime) }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="this.displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: this.displayedColumns"></tr>
+        </table>
+    </mat-tab>
+    <mat-tab label="Multi">
+        <table mat-table [dataSource]="multi" class="mat-elevation-z0">
+            <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef>{{ 'Top' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ multi.indexOf(element) + 1 }}</td>
+            </ng-container>
+            <ng-container matColumnDef="player-name">
+                <th mat-header-cell *matHeaderCellDef>{{ 'Player' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ element.playerName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="record-time">
+                <th mat-header-cell *matHeaderCellDef>{{ 'Time' | translate }}</th>
+                <td mat-cell *matCellDef="let element">{{ this.time.format(element.recordTime) }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="this.displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: this.displayedColumns"></tr></table
+    ></mat-tab>
+</mat-tab-group>

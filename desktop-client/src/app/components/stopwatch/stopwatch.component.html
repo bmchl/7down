@@ -1,0 +1,6 @@
+<section class="timer">
+    <div class="timer-clock">
+        <h2>{{ this.gameService.match?.gamemode === 'time-limit' ? ('Compte à rebours' | translate) : ('Chronomètre' | translate) }}</h2>
+        <mat-card-title>{{ stopwatchDisplay }}</mat-card-title>
+    </div>
+</section>

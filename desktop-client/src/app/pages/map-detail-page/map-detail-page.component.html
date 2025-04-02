@@ -1,0 +1,172 @@
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<app-sidebar></app-sidebar>
+<div class="flex w-[calc(75vw-300px)] ml-[300px] px-12 box-border mt-12 justify-center">
+    <div class="flex flex-col gap-10 bg-[#E0DDF0] bg-opacity-30 p-10 rounded-2xl w-fit">
+        <div class="flex gap-8">
+            <div class="flex flex-col justify-between w-[480px]">
+                <div class="flex justify-between">
+                    <div class="flex flex-col">
+                        <span class="text-4xl font-bold">{{ game.gameName.charAt(0).toUpperCase() + game.gameName.slice(1) }}</span>
+                        <span class="text-xl">{{ 'Username' | translate }}</span>
+                    </div>
+                    <!-- <button class="bg-[#CA8484] bg-opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0 cursor-pointer">
+                        <mat-icon class="text-[#3C0000BA]">flag</mat-icon>
+                    </button> -->
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl">{{ 'Difference' | translate }}</span>
+                    <span class="text-3xl">{{ game.differenceCount }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl">{{ 'Difficulty' | translate }}</span>
+                    <span class="text-3xl">{{ (game.difficulty >= 7 ? 'Hard' : 'Easy') | translate }}</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl">{{ 'Times played' | translate }}</span>
+                    <span class="text-3xl"
+                        >{{ game.plays?.toLocaleString('en-US')?.replace(',', ' ') }} {{ 'play' | translate }}{{ 10 > 1 ? 's' : '' }}</span
+                    >
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex flex-col">
+                        <span class="text-xl">{{ 'Like count' | translate }}</span>
+                        <span class="text-3xl"
+                            >{{ (this.game.likes ?? 0).toLocaleString('en-US').replace(',', ' ') }} {{ 'like' | translate
+                            }}{{ [-1, 1].includes(this.game.likes ?? 0) ? '' : 's' }}</span
+                        >
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            (click)="dislikeGame()"
+                            class="opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0 cursor-pointer"
+                            [class.text-[#8F84CA]]="liked === false"
+                        >
+                            <mat-icon class="">thumb_down</mat-icon>
+                        </button>
+                        <button
+                            (click)="likeGame()"
+                            class="opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0 cursor-pointer"
+                            [class.text-[#8F84CA]]="liked === true"
+                        >
+                            <mat-icon class="">thumb_up</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <img [src]="serverPath + game.image" class="w-[480px] h-[360px] rounded-lg border-2 border-solid border-[#8F84CA] border-opacity-50" />
+        </div>
+        <hr class="w-full h-px bg-[#9995AD] bg-opacity-50" />
+        <div class="flex gap-8">
+            <div class="flex flex-col w-[480px] gap-10">
+                <div class="flex justify-between">
+                    <span class="text-3xl">{{ 'Comments' | translate }}</span>
+                    <button class="bg-[#8F84CA] bg-opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0 cursor-pointer">
+                        <mat-icon class="">add</mat-icon>
+                    </button>
+                </div>
+                <div class="flex flex-col gap-5 max-h-[300px] overflow-auto">
+                    <div class="flex flex-col gap-5 bg-[#E0DDF0] bg-opacity-30 rounded-2xl p-5">
+                        <div class="flex justify-between">
+                            <div class="flex gap-2 items-center">
+                                <div class="w-8 h-8 bg-slate-500 rounded-full"></div>
+                                <span class="text-xl">{{ 'Username' | translate }}</span>
+                            </div>
+                            <span class="italic text-xl">DD/MM/YY HH:mm</span>
+                        </div>
+                        <span class="text-xl">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+                            aliqua.
+                        </span>
+                    </div>
+                    <div class="flex flex-col gap-5 bg-[#E0DDF0] bg-opacity-30 rounded-2xl p-5">
+                        <div class="flex justify-between">
+                            <div class="flex gap-2 items-center">
+                                <div class="w-8 h-8 bg-slate-500 rounded-full"></div>
+                                <span class="text-xl">{{ 'Username' | translate }}</span>
+                            </div>
+                            <span class="italic text-xl">DD/MM/YY HH:mm</span>
+                        </div>
+                        <span class="text-xl">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna
+                            aliqua.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="!currentMatch" class="flex flex-col w-[480px] gap-10">
+                <div class="flex justify-between">
+                    <span class="text-3xl">{{ 'Rooms' | translate }}</span>
+                    <button
+                        (click)="createLobby()"
+                        class="bg-[#8F84CA] bg-opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0 cursor-pointer"
+                    >
+                        <mat-icon class="">add</mat-icon>
+                        <span>{{ 'Create' | translate }}</span>
+                    </button>
+                    <!-- <button
+                        (click)="createLobbyForFriends()"
+                        class="bg-[#8F84CA] bg-opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0 cursor-pointer"
+                    >
+                        <mat-icon class="">add</mat-icon>
+                        <span>Friends</span>
+                    </button>
+                    <button
+                        (click)="createLobbyForFriendsoFFriends()"
+                        class="bg-[#8F84CA] bg-opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0 cursor-pointer"
+                    >
+                        <mat-icon class="">add</mat-icon>
+                        <span>Friends of Friends</span>
+                    </button> -->
+                </div>
+                <div class="flex flex-col gap-5">
+                    <div class="flex justify-between bg-[#E0DDF0] bg-opacity-30 rounded-2xl p-5" *ngFor="let match of filteredMatches">
+                        <div class="flex gap-2 items-center">
+                            <div class="w-8 h-8 bg-slate-500 rounded-full overflow-hidden">
+                                <img [src]="match.players[0].profilePic" class="w-full h-full" />
+                            </div>
+                            <span class="text-xl">{{ match.players[0].name }}</span>
+                        </div>
+                        <button
+                            (click)="joinLobby(match.matchId)"
+                            class="bg-[#1A1789] bg-opacity-45 w-fit h-fit text-2xl py-2 text-white px-11 rounded-full flex items-center border-0 cursor-pointer"
+                        >
+                            {{ 'Join' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="currentMatch" class="flex flex-col w-[480px] gap-10">
+                <div class="flex justify-between">
+                    <span class="text-3xl awaitting">{{ 'Awaiting' | translate }}</span>
+                    <div class="flex gap-2">
+                        <button
+                            *ngIf="currentMatch.players.length >= 2 && currentMatch.players[0].id === socketService.socket.id"
+                            (click)="startGame()"
+                            class="bg-[#8F84CA] bg-opacity-50 w-fit h-fit px-4 py-2 text-xl rounded-full flex items-center border-0 cursor-pointer"
+                        >
+                            {{ 'Start' | translate }}
+                        </button>
+                        <button
+                            (click)="leaveLobby()"
+                            class="bg-[#CA8484] bg-opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0 cursor-pointer"
+                        >
+                            <mat-icon class="">exit_to_app</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-5">
+                    <div class="flex justify-between bg-[#E0DDF0] bg-opacity-30 rounded-2xl p-5" *ngFor="let player of currentMatch.players">
+                        <div class="flex gap-2 items-center">
+                            <div class="w-8 h-8 bg-slate-500 rounded-full overflow-hidden">
+                                <img [src]="player.profilePic" class="w-full h-full" />
+                            </div>
+                            <span class="text-xl">{{ player.name }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+.abandoned-player {
+    text-decoration: line-through;
+}
+.back {
+    width: 100vw;
+    height: 95vh;
+}
+app-header {
+    height: 5vh;
+    width: 100vw;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    width: 80%;
+    height: 5vh;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+.history {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    height: 90vh;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+table {
+    width: 80%;
+    margin-top: 2%;
+    margin-left: 10%;
+}
+
+.delBtn {
+    margin-top: 2%;
+    left: 10%;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.dark .bg-white {
+    background-color: #333333;
+}
+
+.toggle-dark-mode {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dark .history-table {
+    background-color: #333; /* Dark background for dark mode */
+    color: #fff; /* Light text color for dark mode */
+}
+
+.dark .history-table th,
+.dark .history-table td {
+    border-color: #555; /* Darker borders for table cells */
+}
+
+.mat-cell {
+    text-align: center;
+}

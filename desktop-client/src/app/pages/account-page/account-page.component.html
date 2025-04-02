@@ -1,0 +1,262 @@
+<app-sidebar></app-sidebar>
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<div class="container">
+    <div class="flex flex-col gap-4 w-[calc(100vw-350px)] ml-[350px] px-12 box-border mt-12 justify-center back">
+        <div class="flex w-3/4 justify-between">
+            <div
+                routerLink="/history"
+                class="border border-solid border-[#8F84CA] text-[#8F84CA] hover:bg-[#8F84CA]/30 cursor-pointer transition-all bg-opacity-50 rounded-full py-2 px-4 flex items-center gap-1"
+            >
+                <mat-icon>history</mat-icon>Voir l'historique
+            </div>
+            <div
+                (click)="navigateToAddFriendPage()"
+                class="-mr-20 border border-solid border-[#8F84CA] text-[#8F84CA] hover:bg-[#8F84CA]/30 cursor-pointer transition-all bg-opacity-50 rounded-full py-2 px-4 flex items-center gap-1"
+            >
+                <mat-icon>group_add</mat-icon>Recherche utilisateur
+            </div>
+        </div>
+
+        <!-- <div class="statistics-section w-2/3">
+            <h3 class="text-xl font-bold text-center m-0 mb-2">{{ 'Statistics' | translate }}</h3>
+            <ul class="m-0 p-0 w-full">
+                <li class="flex items-center gap-1">
+                    <mat-icon>login</mat-icon>
+                    {{ 'Login Count' | translate }}: {{ loginCount }}
+                </li>
+                <li class="flex items-center gap-1">
+                    <mat-icon>logout</mat-icon>
+                    {{ 'Logout Count' | translate }}: {{ logoutCount }}
+                </li>
+            </ul>
+        </div> -->
+
+        <div class="flex bg-[#E0DDF0] bg-opacity-30 p-10 rounded-2xl w-3/4 relative">
+            <div class="flex-1">
+                <!-- <mat-button-toggle routerLink="/history">My Game History</mat-button-toggle> -->
+                <!-- <div class="replays-section">
+                <h3>Replays</h3>
+                <div class="replay-events">
+                    <div *ngFor="let uniqueId of replayEvents" (click)="handleReplayEventClick(uniqueId)" class="replay-event">
+                        <p>{{ uniqueId }}</p>
+                        <button (click)="deleteReplayEvent(uniqueId)" class="delete-button">Delete</button>
+                    </div>
+                    <div *ngIf="replayEvents.length === 0" class="no-replays-message">No replay events available.</div>
+                </div>
+            </div> -->
+
+                <div class="account-container">
+                    <div>
+                        <!-- <div class="username-section">
+                        <label for="username">{{ 'Username' | translate }}:</label>
+                        <input type="text" id="username" name="username" [(ngModel)]="username" />
+                        <button class="btn-update-username" (click)="updateUsername()">{{ 'Save Username' | translate }}</button>
+                        <div *ngIf="usernameUpdateMessage" class="success-message">{{ usernameUpdateMessage }}</div>
+                    </div> -->
+                        <mat-form-field appearance="fill" class="w-2/3">
+                            <mat-label>{{ 'Username' | translate }}</mat-label>
+                            <input type="text" id="username" name="username" [(ngModel)]="username" matInput />
+                            <div *ngIf="usernameUpdateMessage" class="success-message">{{ usernameUpdateMessage }}</div>
+                        </mat-form-field>
+                        <!-- <div class="hometown-section">
+                        <label for="hometown">{{ 'Hometown' | translate }}:</label>
+                        <input type="text" id="hometown" name="hometown" [(ngModel)]="hometown" />
+                        <button class="btn-update-hometown" (click)="updateHometown()">{{ 'Save Hometown' | translate }}</button>
+                        <div *ngIf="hometownUpdateMessage" class="success-message">{{ hometownUpdateMessage }}</div>
+                    </div> -->
+                        <mat-form-field appearance="fill" class="w-2/3">
+                            <mat-label>{{ 'Hometown' | translate }}</mat-label>
+                            <input type="text" id="hometown" name="hometown" [(ngModel)]="hometown" matInput />
+                            <div *ngIf="hometownUpdateMessage" class="success-message">{{ hometownUpdateMessage }}</div>
+                        </mat-form-field>
+
+                        <div class="avatar-section relative">
+                            <div class="avatar relative">
+                                <img *ngIf="avatarUrl" [src]="avatarUrl" alt="Avatar Image" class="w-full h-full" />
+                                <mat-icon *ngIf="!avatarUrl">account_circle</mat-icon>
+                                <div
+                                    class="absolute w-10 h-10 bottom-0 right-0 bg-[#c2bce3] rounded-2xl flex items-center justify-center"
+                                    (drop)="onDrop($event)"
+                                    (dragover)="onDragOver($event)"
+                                >
+                                    <!-- <p>{{ 'Drop image here' | translate }}</p> -->
+                                    <mat-icon class="">upload_file</mat-icon>
+                                </div>
+                                <input type="file" (change)="uploadAvatar($event)" />
+                            </div>
+                        </div>
+
+                        <button
+                            class="border-0 rounded-full appearance-none outline-none bg-[#8F84CA] bg-opacity-50 hover:bg-opacity-30 transition-all py-2 px-4"
+                            (click)="updateUsername(); updateHometown()"
+                        >
+                            {{ 'Save' | translate }}
+                        </button>
+                    </div>
+
+                    <div>
+                        <mat-form-field class="w-2/3">
+                            <mat-label>{{ 'Theme visuel' | translate }}</mat-label>
+                            <mat-select [(ngModel)]="selected" (selectionChange)="toggleDarkMode()">
+                                <mat-option value="light">Light</mat-option>
+                                <mat-option value="dark">Dark</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="w-2/3">
+                            <mat-label>{{ 'Language' | translate }}</mat-label>
+                            <mat-select [(value)]="selected" (selectionChange)="changeLanguage($event.value)">
+                                <mat-option value="en">En</mat-option>
+                                <mat-option value="fr">Fr</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="flex justify-center mb-4">
+                        <div class="statistics-section w-2/3">
+                            <h3 class="text-xl font-bold text-center m-0 mb-2">{{ 'Statistics' | translate }}</h3>
+                            <ul class="m-0 p-0 w-full">
+                                <!-- <li>{{ 'Played Games' | translate }}: 0</li> -->
+                                <li class="flex items-center gap-1">
+                                    <mat-icon>star</mat-icon>{{ 'Won Games' | translate }}: {{ numberOfGamesWon }}
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <mat-icon> view_timeline</mat-icon>{{ 'Played Games' | translate }}: {{ numberOfGamesPlayed }}
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <mat-icon> key </mat-icon>{{ 'Average of difference found per match' | translate }}:
+                                    {{ averageDifferencesFoundPerGame }}
+                                </li>
+                                <li class="flex items-center gap-4">
+                                    <mat-icon>schedule</mat-icon>{{ 'Average time per match' | translate }}: {{ averageTimePerGame }} sec
+                                </li>
+                                <li class="flex items-center gap-4">
+                                    <mat-icon>login</mat-icon>
+                                    {{ 'Login Count' | translate }}: {{ loginCount }}
+                                </li>
+                                <li class="flex items-center gap-4">
+                                    <mat-icon>logout</mat-icon>
+                                    {{ 'Logout Count' | translate }}: {{ logoutCount }}
+                                </li>
+                                <!-- <li>{{ 'Average Difference' | translate }}: 0</li>
+                            <li>{{ 'Average Time Per Game' | translate }}: 0</li> -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="flex justify-center mb-4">
+                        <div class="statistics-section w-2/3">
+                            <h3 class="text-xl font-bold text-center m-0 mb-2">{{ 'Replay' | translate }}</h3>
+                            <ul class="m-0 p-0 w-full">
+                                <!-- <li>{{ 'Played Games' | translate }}: 0</li> -->
+                                <li
+                                    *ngFor="let uniqueId of replayEvents"
+                                    class="flex items-center justify-between w-full"
+                                    (click)="handleReplayEventClick(uniqueId)"
+                                >
+                                    <div class="flex items-center gap-1"><mat-icon>play_arrow</mat-icon>{{ uniqueId }}</div>
+                                    <div (click)="deleteReplayEvent(uniqueId)" class="delete-button self-end"><mat-icon>delete</mat-icon></div>
+                                </li>
+                                <div *ngIf="replayEvents.length === 0" class="no-replays-message">No replay events available.</div>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <button mat-raised-button class="logout-button" (click)="logout()">{{ 'Logout' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="h-full w-px bg-slate-500 top-0 m-0" />
+            <div class="flex-1 friends-tabs">
+                <mat-tab-group>
+                    <mat-tab [label]="'My Friends' | translate">
+                        <ul class="m-0 p-4 box-border w-full flex flex-col gap-2">
+                            <li
+                                *ngFor="let friend of friends"
+                                class="flex w-full justify-between items-center bg-[#8F84CA] bg-opacity-50 px-2 py-2 box-border rounded-xl"
+                            >
+                                <div class="flex items-center gap-2">
+                                    <img [src]="friend.avatarUrl" class="w-12 h-12 rounded-full" alt="{{ 'Friend Avatar' | translate }}" />
+                                    <div class="flex flex-col">
+                                        <span>{{ friend.username }}</span>
+                                        <span class="opacity-60">{{ friend.hometown }}</span>
+                                    </div>
+                                </div>
+                                <mat-icon (click)="deleteFriend(friend.id)">remove</mat-icon>
+                            </li>
+                        </ul>
+                    </mat-tab>
+                    <mat-tab [label]="'Friend Requests' | translate">
+                        <ul class="m-0 p-4 box-border w-full flex flex-col gap-2">
+                            <li
+                                *ngFor="let request of friendRequests"
+                                class="flex w-full justify-between items-center bg-[#8F84CA] bg-opacity-50 px-2 py-2 box-border rounded-xl"
+                            >
+                                <div class="flex items-center gap-2">
+                                    <img [src]="request.senderAvatarUrl" class="w-12 h-12 rounded-full" alt="{{ 'Friend Avatar' | translate }}" />
+                                    <div class="flex flex-col">
+                                        <span>{{ request.senderUsername }}</span>
+                                        <span class="opacity-60">{{ request.hometown }}</span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-2 items-center">
+                                    <mat-icon (click)="acceptFriendRequest(request.senderUid)">check</mat-icon>
+                                    <mat-icon (click)="denyFriendRequest(request.senderUid)">close</mat-icon>
+                                </div>
+                            </li>
+                        </ul>
+                    </mat-tab>
+                </mat-tab-group>
+                <!-- <div class="friends-container bg-white dark:bg-black text-black dark:text-white">
+                <div class="bg-white dark:bg-black text-black dark:text-white">
+                    <div class="header">
+                        <div class="tab" [class.active]="activeTab === 'friends'" (click)="toggleTab('friends')">{{ 'My Friends' | translate }}</div>
+                        <div class="tab" [class.active]="activeTab === 'requests'" (click)="toggleTab('requests')">
+                            {{ 'Friend Requests' | translate }}
+                        </div>
+                        <mat-icon class="add-friends-icon" (click)="navigateToAddFriendPage()">person_add</mat-icon>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div *ngIf="activeTab === 'friends'">
+                        <ul>
+                            <li *ngFor="let friend of friends">
+                                <div class="friend-item">
+                                    <div class="avatar">
+                                        <img [src]="friend.avatarUrl" alt="{{ 'Friend Avatar' | translate }}" />
+                                    </div>
+                                    <div class="details">
+                                        <span>{{ friend.username }}</span>
+                                        <button (click)="deleteFriend(friend.id)">{{ 'Delete' | translate }}</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div *ngIf="activeTab === 'requests'">
+                        <div *ngFor="let request of friendRequests">
+                            <div class="friend-request-item">
+                                <div class=a"avatar">
+                                    <img [src]="request.senderAvatarUrl" alt="Sender Avatar" />
+                                </div>
+                                <div class="details">
+                                    <span>{{ request.senderUsername }}</span>
+                                </div>
+                                <div class="actions">
+                                    <button mat-icon-button color="primary" (click)="acceptFriendRequest(request.senderUid)">
+                                        <mat-icon>check</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn" (click)="denyFriendRequest(request.senderUid)">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            </div>
+        </div>
+    </div>
+</div>

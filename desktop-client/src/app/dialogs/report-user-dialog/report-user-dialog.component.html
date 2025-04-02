@@ -1,0 +1,20 @@
+<div class="report-user-dialog">
+    <h2 mat-dialog-title>{{ 'Report a User' | translate }}</h2>
+    <mat-dialog-content>
+        <p>{{ 'Select a reason for reporting the user:' | translate }}</p>
+        <mat-form-field>
+            <mat-label>{{ 'Reason' | translate }}</mat-label>
+            <mat-select [(value)]="selectedReason">
+                <mat-option value="Sexism">{{ 'Sexism' | translate }}</mat-option>
+                <mat-option value="Racism">{{ 'Racism' | translate }}</mat-option>
+                <mat-option value="Homophobia">{{ 'Homophobia' | translate }}</mat-option>
+                <mat-option value="Discrimination">Discrimination</mat-option>
+                <mat-option value="Spam">Spam</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button (click)="cancel()">{{ 'Cancel' | translate }}</button>
+        <button mat-button color="warn" (click)="submitReport()">{{ 'Submit' | translate }}</button>
+    </mat-dialog-actions>
+</div>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ 'Messaging App' | translate }}</title>
+        <link rel="stylesheet" type="text/css" href="game-chat.component.scss" />
+    </head>
+    <body>
+        <!-- Button to open the chat if it is not visible -->
+        <button mat-button class="open-chat-button" (click)="toggleVisibility()" *ngIf="!isVisible"><mat-icon>chat</mat-icon> Chat</button>
+
+        <div class="container" *ngIf="isVisible">
+            <!-- Button to close the chat inside the container -->
+            <button mat-button class="toggle-chat-button" (click)="toggleVisibility()"><mat-icon>arrow_back_ios</mat-icon></button>
+
+            <div class="matb">
+                <!-- Tab for Rooms the User Has Joined -->
+                <mat-tab-group animationDuration="0ms">
+                    <mat-tab label="My Rooms">
+                        <div *ngFor="let room of userRooms" class="room-item">
+                            <span>{{ room.name }}</span>
+                            <button mat-button (click)="enterRoom(room.id)"><mat-icon>login</mat-icon>Enter Room</button>
+                            <button mat-button *ngIf="room.id !== 'global'" (click)="showParticipants(room.id)">
+                                <mat-icon>groups</mat-icon>View Participants
+                            </button>
+                            <button mat-button color="warn" [disabled]="!(room.id.length <= 6 && room.id !== 'global')" (click)="leaveRoom(room.id)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Available Public Rooms">
+                        <div *ngFor="let room of publicRooms" class="room-item">
+                            <span>{{ room.name }}</span>
+                            <button mat-button (click)="joinRoom(room.id)"><mat-icon>login</mat-icon>Join Room</button>
+                            <button mat-button *ngIf="room.id !== 'global'" (click)="showParticipants(room.id)">
+                                <mat-icon>groups</mat-icon>View Participants
+                            </button>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+            <div class="middle-section">
+                <div id="chatWindow" #chatWindow>
+                    <div
+                        *ngFor="let message of messages.slice().reverse(); let i = index"
+                        class="message"
+                        [class.message-right]="isMessageFromCurrentUser(message.sender)"
+                        [class.message-left]="!isMessageFromCurrentUser(message.sender)"
+                    >
+                        <div class="message-avatar">
+                            <img [src]="message.avatarUrl" alt="User Avatar" class="avatar" />
+                        </div>
+                        <div class="message-content">
+                            <div class="message-username">{{ message.username }}</div>
+                            <div class="message-text">{{ message.text }}</div>
+                            <div class="message-time">{{ message.time }}</div>
+                            <div *ngIf="!isMessageFromCurrentUser(message.sender)" class="report-user" (click)="reportUser(message.username)">
+                                <mat-icon>flag</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-section">
+                    <mat-form-field class="message-box">
+                        <textarea
+                            matInput
+                            type="text"
+                            [(ngModel)]="newMessage.text"
+                            placeholder="Type a message..."
+                            (keydown.enter)="sendMessageOnEnter($event)"
+                            class="no-resize"
+                            #messageInput
+                        ></textarea>
+                        <button mat-raised-button class="buttonGlobalChat" color="primary" type="button" (click)="sendMessage()">
+                            <mat-icon>send</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,111 @@
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<div class="container w-full box-border flex flex-col gap-4">
+    <div class="flex gap-4 items-center">
+        <mat-icon (click)="this.dialogRef.close()" class="cursor-pointer">arrow_back</mat-icon>
+        <h1 class="m-0">{{ 'User search' | translate }}</h1>
+    </div>
+    <div class="flex flex-col w-full">
+        <!-- <input type="text" [placeholder]="'Search' | translate" [(ngModel)]="searchQuery" (input)="searchUsers()" /> -->
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>{{ 'Search' | translate }}</mat-label>
+            <input (input)="searchUsers()" type="text" id="hometown" name="hometown" [(ngModel)]="searchQuery" matInput />
+        </mat-form-field>
+
+        <button
+            (click)="toggleSearchMode()"
+            class="w-full rounded-full bg-[#8F84CA] bg-opacity-30 hover:bg-opacity-50 transition-all cursor-pointer px-4 py-2 border-0 appearance-none outline-none"
+        >
+            {{ searchMode === 'username' ? 'Search by Hometown' : 'Search by Username' }}
+        </button>
+        <!-- <button class="toggle-dark-mode" (click)="toggleDarkMode()">{{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}</button> -->
+    </div>
+    <div *ngIf="loading" class="loader-wrapper">
+        <mat-spinner diameter="32"></mat-spinner>
+    </div>
+    <div *ngIf="!loading" class="flex flex-col gap-2 overflow-auto max-h-[600px]">
+        <!-- <div *ngFor="let user of filteredUsers" class="user">
+            <img [src]="user.avatarUrl" alt="User Avatar" />
+            <span>{{ user.username }}</span>
+            <span>{{ user.hometown }}</span>
+            <button (click)="sendFriendRequest(user.username, user.id); $event.stopPropagation()">{{ 'Add' | translate }}</button>
+            <button (click)="blockUser(user.id)">{{ 'Block' | translate }}</button>
+            <button (click)="toggleFriendsVisibility(user.id)">{{ 'See Friends' | translate }}</button>
+            <div *ngIf="errorMessages[user.id]">{{ errorMessages[user.id] }}</div>
+            <div *ngIf="user.showFriends">
+                <div *ngIf="user.showFriends">
+                    <ng-container *ngFor="let friend of user.friends">
+                        <div *ngIf="friend.id !== uid" class="friend">
+                            <img [src]="friend.avatarUrl" alt="Friend Avatar" />
+                            <span>{{ friend.username }}</span>
+                            <span>{{ friend.hometown }}</span>
+                            <button (click)="sendFriendRequest(friend.username, friend.id)">{{ 'Add' | translate }}</button>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div> -->
+        <div class="flex flex-col gap-1 w-full items-center" *ngFor="let user of filteredUsers">
+            <div class="flex w-full justify-between items-center bg-[#8F84CA] bg-opacity-20 px-2 py-2 box-border rounded-xl">
+                <div class="flex items-center gap-2">
+                    <img [src]="user.avatarUrl" class="w-12 h-12 rounded-full" alt="{{ 'Friend Avatar' | translate }}" />
+                    <div class="flex flex-col">
+                        <span>{{ user.username }}</span>
+                        <span class="opacity-60">{{ user.hometown }}</span>
+                    </div>
+                </div>
+                <div class="flex gap-2 items-center">
+                    <div
+                        class="shadow-2xl border border-solid border-[#8F84CA] text-[#8F84CA] hover:bg-[#8F84CA]/30 rounded-full px-4 py-2 cursor-pointer transition-all"
+                        (click)="sendFriendRequest(user.username, user.id); $event.stopPropagation()"
+                    >
+                        {{ 'Add' | translate }}
+                    </div>
+                    <div
+                        class="shadow-2xl border border-solid border-[#8F84CA] text-[#8F84CA] hover:bg-[#8F84CA]/30 rounded-full px-4 py-2 cursor-pointer transition-all"
+                        (click)="blockUser(user.id)"
+                    >
+                        {{ 'Block' | translate }}
+                    </div>
+                    <div
+                        class="shadow-2xl border border-solid border-[#8F84CA] text-[#8F84CA] hover:bg-[#8F84CA]/30 rounded-full px-4 py-2 cursor-pointer transition-all"
+                        (click)="toggleFriendsVisibility(user.id)"
+                    >
+                        {{ 'See Friends' | translate }}
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="user.showFriends" class="w-[90%] flex-col flex gap-1">
+                <div
+                    *ngFor="let friend of user.friends"
+                    class="flex w-full justify-between items-center bg-[#8F84CA] bg-opacity-20 px-2 py-2 box-border rounded-xl"
+                >
+                    <div *ngIf="friend.id !== uid" class="flex w-full items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <img [src]="friend.avatarUrl" class="w-12 h-12 rounded-full" alt="{{ 'Friend Avatar' | translate }}" />
+                            <div class="flex flex-col">
+                                <span>{{ friend.username }}</span>
+                                <span class="opacity-60">{{ friend.hometown }}</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 items-center">
+                            <div
+                                class="shadow-2xl border border-solid border-[#8F84CA] text-[#8F84CA] hover:bg-[#8F84CA]/30 rounded-full px-4 py-2 cursor-pointer transition-all"
+                                (click)="sendFriendRequest(friend.username, friend.id); $event.stopPropagation()"
+                            >
+                                {{ 'Add' | translate }}
+                            </div>
+                            <div
+                                class="shadow-2xl border border-solid border-[#8F84CA] text-[#8F84CA] hover:bg-[#8F84CA]/30 rounded-full px-4 py-2 cursor-pointer transition-all"
+                                (click)="blockUser(friend.id)"
+                            >
+                                {{ 'Block' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

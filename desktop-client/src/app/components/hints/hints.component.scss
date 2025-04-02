@@ -1,0 +1,14 @@
+p,
+h2 {
+    display: inline-block;
+}
+h2 {
+    padding-right: 1rem;
+}
+div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 1rem;
+}

@@ -1,0 +1,7 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<mat-dialog-content>
+    <mat-spinner [diameter]="50"></mat-spinner>
+</mat-dialog-content>
+<span mat-dialog-actions [align]="'end'">
+    <button mat-button (click)="this.dialogRef.close(true)">{{ 'Cancel' | translate }}</button>
+</span>

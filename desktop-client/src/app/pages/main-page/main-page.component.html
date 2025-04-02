@@ -1,0 +1,22 @@
+<div class="container justified back">
+    <h1 class="header-item">
+        Projet 2 LOG2990: <span>{{ title }}</span>
+    </h1>
+    <img src="./assets/img/logo/logo-indigo.png" height="200" alt="Logo Projet" />
+    <section id="options">
+        <div class="justified">
+            <button mat-raised-button class="button" routerLink="/classic">{{ 'Classic Mode' | translate }}</button>
+            <button mat-raised-button class="button" (click)="onTimeLimitedClick()">{{ 'Time Limited Mode' | translate }}</button>
+            <button mat-raised-button class="button" routerLink="/config">Configuration</button>
+            <button mat-raised-button class="button" routerLink="/account">{{ 'Account' | translate }}</button>
+        </div>
+    </section>
+
+    <footer class="footer-item">
+        <h4 class="team-name">{{ 'Team Poly 306' | translate }}</h4>
+        <p>
+            <span>Michael Banna</span>,<span>Rasel Chowdhury</span>, <span>Aziz Doghri</span>, <span>Jason Greige</span>,
+            <span>Éric Moukheiber</span>, <span>Nour Zahreddine</span>
+        </p>
+    </footer>
+</div>

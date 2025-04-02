@@ -1,0 +1,68 @@
+<app-sidebar></app-sidebar>
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<div class="back">
+    <div [ngClass]="{ dark: isDarkMode }" class="back">
+        <section class="history">
+            <table mat-table [dataSource]="this.matches" class="mat-elevation-z8 history-table">
+                <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef>Date de début</th>
+                    <td mat-cell *matCellDef="let match">{{ match.formattedStartDate }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="startTime">
+                    <th mat-header-cell *matHeaderCellDef>Heure de début</th>
+                    <td mat-cell *matCellDef="let match">{{ match.responseTime }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="gameDuration">
+                    <th mat-header-cell *matHeaderCellDef>{{ 'Initial Game Duration' | translate }}</th>
+                    <td mat-cell *matCellDef="let match">{{ match.gameDuration }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="gameMode">
+                    <th mat-header-cell *matHeaderCellDef>{{ 'Game Mode' | translate }}</th>
+                    <td mat-cell *matCellDef="let match">{{ match.gameMode }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="playerMode">
+                    <th mat-header-cell *matHeaderCellDef>{{ 'Number Of Players' | translate }}</th>
+                    <td mat-cell *matCellDef="let match">{{ match.playerMode }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="players">
+                    <th mat-header-cell *matHeaderCellDef>{{ 'Player Names' | translate }}</th>
+                    <td mat-cell *matCellDef="let match">
+                        <div *ngFor="let player of match.players">
+                            <span
+                                [ngStyle]="{
+                                    'font-weight': match.winnerSocketId === player.id ? 'bold' : 'normal',
+                                    'text-decoration': player.forfeitter ? 'line-through' : 'none'
+                                }"
+                            >
+                                {{ player.name }}
+                                <span *ngIf="player.creator"> (C)</span>
+                                <span *ngIf="player.forfeitter">{{ '(Abandoned)' | translate }}</span>
+                            </span>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="gameTime">
+                    <th mat-header-cell *matHeaderCellDef>{{ 'Game Time' | translate }}</th>
+                    <td mat-cell *matCellDef="let match">{{ match.gameTime }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="winnerUsername">
+                    <th mat-header-cell *matHeaderCellDef>Winner</th>
+                    <td mat-cell *matCellDef="let match">{{ match.winnerUsername }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <span *ngIf="this.matches.length === 0">{{ 'No games played' | translate }}</span>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="create-account-container">
+        <h2>Create an Account</h2>
+        <form (ngSubmit)="createAccount()">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" [(ngModel)]="email" required email />
+                <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            </div>
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" [(ngModel)]="username" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" [(ngModel)]="password" required />
+            </div>
+            <div class="form-group">
+                <label for="hometown">Hometown:</label>
+                <input type="text" id="hometown" name="hometown" [(ngModel)]="hometown" required />
+            </div>
+            <div class="form-group">
+                <label>Select Profile Image:</label>
+                <div *ngFor="let image of images; let i = index" class="image-option">
+                    <input type="radio" id="{{ i }}" name="profileImage" [value]="image.url" [(ngModel)]="selectedImage" />
+                    <label for="{{ i }}"><img src="{{ image.url }}" alt="Profile Image" /></label>
+                </div>
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+        <div class="login-link">
+            <p>Already have an account? <a routerLink="/connexion">Login</a></p>
+        </div>
+    </div>
+</div>

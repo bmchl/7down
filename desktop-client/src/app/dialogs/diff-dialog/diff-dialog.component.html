@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+    <canvas #diffCanvas width="640" height="480"></canvas>
+    <p>{{ 'Number of differences deteceted:' | translate }} {{ data.differenceCount }}</p>
+</div>
+<div mat-dialog-actions [align]="'end'">
+    <button mat-button (click)="this.dialogRef.close(false)">{{ 'Retry' | translate }}</button>
+    <button mat-button cdkFocusInitial (click)="this.dialogRef.close(true)">{{ 'Continue' | translate }}</button>
+</div>

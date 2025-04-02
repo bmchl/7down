@@ -1,0 +1,19 @@
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<div class="flex w-[calc(65vw-300px)] ml-[300px] px-12 box-border mt-12 justify-center" *ngIf="this.gameService.match">
+    <div class="container flex flex-col gap-4">
+        <app-game-info></app-game-info>
+        <div [ngClass]="{ ignoreClick: this.gameService.match.winnerSocketId !== undefined }">
+            <section class="play-area-container">
+                <app-play-area [differences]="differences" [images]="gameImages" class="play-area" tabindex="0"></app-play-area>
+            </section>
+        </div>
+        <div class="p-6 rounded-lg bg-[#E0DDF0] bg-opacity-30 w-full">
+            <div class="multi-game-footer info-bar">
+                <app-stopwatch></app-stopwatch>
+                <app-difference-count *ngFor="let player of gameService.match?.players; index as i" [index]="i"></app-difference-count>
+            </div>
+        </div>
+    </div>
+</div>

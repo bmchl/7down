@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>{{ 'Time limited mode' | translate }}</h1>
+<mat-dialog-content>
+    <p>{{ 'Enter your name and choose a game mode.' | translate }}</p>
+    <mat-form-field appearance="fill">
+        <mat-label>{{ 'Your name' | translate }}</mat-label>
+        <input required onkeypress="return /[a-zA-Z]/i.test(event.key)" maxlength="10" matInput [(ngModel)]="data.input" />
+        <mat-hint align="end">{{ data.input.length }}/10</mat-hint>
+    </mat-form-field>
+    <span class="player-count">
+        <mat-button-toggle-group [(ngModel)]="this.solo">
+            <mat-button-toggle [value]="true"><mat-icon>person</mat-icon> Solo</mat-button-toggle>
+            <mat-button-toggle [value]="false"><mat-icon>people</mat-icon> {{ 'Cooperative' | translate }}</mat-button-toggle>
+        </mat-button-toggle-group>
+    </span>
+</mat-dialog-content>
+<span mat-dialog-actions [align]="'end'">
+    <button mat-button (click)="this.dialogRef.close()">{{ 'Cancel' | translate }}</button>
+    <button mat-button [disabled]="data.input.length === 0 || this.solo === undefined" (click)="triggerStart()">{{ 'Start' | translate }}</button>
+</span>

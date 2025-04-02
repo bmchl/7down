@@ -1,0 +1,25 @@
+<div class="container">
+    <button mat-raised-button color="primary" (click)="toggleDarkMode()"></button>
+    <div class="login-container bg-white">
+        <h2>Login</h2>
+        <form (ngSubmit)="login()" class="example-form">
+            <mat-form-field appearance="fill">
+                <mat-label>Email:</mat-label>
+                <input matInput id="email" name="email" [(ngModel)]="email" required />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Password:</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" id="password" name="password" [(ngModel)]="password" required />
+                <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
+                    <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+            </mat-form-field>
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            <button mat-raised-button color="primary" type="submit">Login</button>
+        </form>
+        <div class="create-account-link">
+            <p>Don't have an account? <a mat-button routerLink="/create-account">Create an Account</a></p>
+            <p><a mat-button routerLink="/password-reset">Forgot your password?</a></p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    .create-account-container {
+        max-width: 400px;
+        width: 100%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+
+        form {
+            display: flex;
+            flex-direction: column;
+
+            .form-group {
+                margin-bottom: 15px;
+                position: relative;
+
+                label {
+                    margin-bottom: 5px;
+                }
+
+                input {
+                    width: 100%;
+                    padding: 8px;
+                    box-sizing: border-box;
+                }
+
+                .error-message,
+                .success-message {
+                    color: white;
+                    padding: 5px;
+                    margin-top: 5px;
+                    border-radius: 5px;
+                    font-size: 12px;
+                    position: absolute;
+                    top: 100%;
+                    width: 100%;
+                }
+
+                .error-message {
+                    /* Optionally, you can customize error message styles */
+                }
+
+                .success-message {
+                    /* Optionally, you can customize success message styles */
+                }
+            }
+
+            button {
+                background-color: #8a2be2;
+                color: white;
+                padding: 10px;
+                cursor: pointer;
+                border: none;
+                border-radius: 5px;
+            }
+        }
+
+        .login-link {
+            margin-top: 15px;
+
+            p {
+                margin: 0;
+
+                a {
+                    color: #8a2be2;
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .image-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+
+            input {
+                margin-right: 10px;
+            }
+
+            img {
+                width: 50px; /* Adjust the size of the image */
+                height: 50px; /* Adjust the size of the image */
+                object-fit: cover; /* Preserve aspect ratio */
+                border-radius: 50%; /* Make the image round */
+            }
+        }
+    }
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.dark .bg-white {
+    background-color: #333333;
+}
+
+.toggle-dark-mode {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}

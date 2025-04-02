@@ -1,0 +1,89 @@
+/* participant-dialog.component.scss */
+
+/* This sets the dialog container to flex and take up the entire space */
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Make sure the dialog container is a flex container to lay out its children */
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Make the container fill the entire dialog */
+    width: 100%;
+    background-color: rgb(224, 221, 240);
+    overflow: hidden; /* Prevents overflow */
+}
+
+/* Title styling */
+.dialog-title {
+    font-size: 24px;
+    font-weight: 600;
+    padding: 20px;
+    text-align: center;
+    background-color: #5f5fc4; /* Matching the color theme of the dialog */
+    color: white;
+    margin: 0; /* Removing margin to prevent unnecessary spacing */
+}
+
+/* Creation date styling */
+.creation-date {
+    font-size: 14px;
+    color: #757575;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+/* Participant list styling, allowing it to scroll if content overflows */
+.participants-list {
+    flex-grow: 1; /* Takes up all available space */
+    padding: 0 20px;
+    margin: 0;
+    list-style-type: none;
+    overflow-y: auto; /* Enables scrolling */
+}
+
+/* Participant item styling */
+.participant-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd; /* Separating items with a border */
+}
+
+/* Adjustments to avatar and username */
+.avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.username {
+    font-size: 16px;
+}
+
+/* Action buttons styling */
+.actions {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    background: #f4f4f7; /* Distinguish the action area with a different background */
+}
+
+.action-button {
+    margin-right: 8px;
+}
+
+/* Additional styling for the delete button */
+.delete-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: darken(#f44336, 10%); /* Make hover effect noticeable */
+}

@@ -1,0 +1,106 @@
+$primary-color: #8a2be2; // Purple color
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5; // Light background color
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.dark .bg-white {
+    background-color: #333333;
+}
+
+.email {
+    width: 100%;
+}
+
+p {
+    color: $primary-color;
+}
+
+.toggle-dark-mode {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-container {
+    background-color: #fff; // White background for login container
+    width: 700px;
+    height: 40%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Box shadow for a subtle effect
+    text-align: center;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .form-group {
+            margin-bottom: 15px;
+
+            label {
+                color: $primary-color; // Purple color for labels
+            }
+
+            input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                margin-top: 5px;
+                box-sizing: border-box;
+
+                &:focus {
+                    outline: none;
+                    border-color: $primary-color; // Highlight border color on focus
+                }
+            }
+        }
+
+        .error-message {
+            color: #ff0000; // Red color for error messages
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 5px 25px;
+            background-color: #efe7f7; // Purple color for the button background
+            color: $primary-color; // White color for the button text
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: darken(#efe7f7, 10%); // Darken the color on hover
+            }
+        }
+    }
+}
+
+h2 {
+    color: $primary-color;
+    font-size: 20pt;
+    margin-top: 10%;
+}
+
+mat-form-field {
+    width: 95%;
+}
+
+mat-form-field input.mat-input-element {
+    width: 100%;
+}

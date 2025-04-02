@@ -1,0 +1,55 @@
+<div class="p-6 rounded-lg bg-[#E0DDF0] bg-opacity-30 w-full">
+    <div class="flex justify-between">
+        <span class="text-3xl"
+            >{{ 'Map' | translate }}: <span class="">{{ gameName.charAt(0).toUpperCase() + gameName.slice(1) }}</span></span
+        >
+        <button
+            *ngIf="gameService.spectator || replayService.isSavedReplay"
+            class="bg-[#CA8484] bg-opacity-50 text-[#3C0000BA] w-fit h-fit p-2 rounded-full flex items-center border-0 text-lg"
+            (click)="triggerStopSpectating()"
+        >
+            {{ 'Leave' | translate }}
+        </button>
+        <button
+            *ngIf="gameService.match?.winnerSocketId === undefined && !gameService.spectator && !replayService.isSavedReplay"
+            class="bg-[#CA8484] bg-opacity-50 text-[#3C0000BA] w-fit h-fit p-2 rounded-full flex items-center border-0 text-lg"
+            (click)="triggerQuitDialog()"
+        >
+            {{ 'Forfeit' | translate }}
+        </button>
+        <button
+            *ngIf="gameService.match?.winnerSocketId !== undefined"
+            class="bg-[#CA8484] bg-opacity-50 text-[#3C0000BA] w-fit h-fit p-2 rounded-full flex items-center border-0 text-lg"
+            routerLink="/"
+        >
+            {{ 'Go back to the main page' | translate }}
+        </button>
+    </div>
+    <ul class="text-lg m-0">
+        <li>
+            {{ 'Game mode' | translate }}:
+            <span>{{ gameService.match.gamemode === 'time-limit' ? ('Time limit' | translate) : ('Classic' | translate) }}</span>
+        </li>
+        <li *ngIf="gameService.match?.gamemode !== 'time-limit'">
+            {{ 'Difficulty level' | translate }}:
+            <span [ngStyle]="{ color: gameService.map?.difficulty === 10 ? 'red' : 'green' }">{{
+                gameService.map?.difficulty === 10 ? ('DIFFICULT' | translate) : ('EASY' | translate)
+            }}</span>
+        </li>
+        <li *ngIf="gameService.map !== undefined && gameService.map.differenceCount && gameService.match?.gamemode !== 'time-limit'">
+            {{ 'Total number of differences' | translate }}: <span>{{ gameService.map.differenceCount }}</span>
+        </li>
+        <li>
+            <div class="flex items-center gap-1"><mat-icon class="">visibility</mat-icon> {{ gameService.match.spectators.length }}</div>
+        </li>
+        <!-- <li *ngIf="hero.differenceCount && hero.mode === 'tl'">
+            Nombres de fiches totales: <span>{{ hero.differenceCount }}</span>
+        </li> -->
+        <!-- <li *ngIf="gameService.map.penalty">
+            Pénalité par indice utilisé: <span>{{ gameService.map.penalty }} secondes</span>
+        </li> -->
+        <li *ngIf="gameService.map?.gain">
+            {{ 'Gain per found difference' | translate }}:<span> {{ gameService.map?.gain }} {{ 'seconds' | translate }}</span>
+        </li>
+    </ul>
+</div>

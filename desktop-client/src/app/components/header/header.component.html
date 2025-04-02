@@ -1,0 +1,12 @@
+<mat-toolbar class="bg-[#E0DDF0]">
+    <button *ngIf="!this.hideBack" mat-icon-button (click)="backClicked()"><mat-icon>arrow_back</mat-icon></button>
+    <span
+        ><a *ngIf="!this.hideBack" class="brand-logo" routerLink="/home">
+            <img src="./assets/img/logo/logo-indigo.png" height="40" />
+        </a>
+        <a *ngIf="this.hideBack" class="brand-logo">
+            <img src="./assets/img/logo/logo-indigo.png" height="40" />
+        </a>
+    </span>
+    <h1>{{ this.title }}</h1>
+</mat-toolbar>

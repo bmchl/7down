@@ -1,0 +1,40 @@
+<mat-card-header>
+    <mat-card-title>Messages</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+    <div class="messages-wrapper" [ngStyle]="{ height: multiplayerOn ? '85%' : '100%' }">
+        <div class="message" *ngFor="let message of localMessages.messages">
+            <p>
+                <span class="timestamp" *ngIf="message.time"
+                    ><b>{{ message.time }}</b> : {{ this.formatContent(message.player, message.type) }}</span
+                >
+                <span *ngIf="message.value">
+                    <span *ngIf="message.player !== 0"
+                        ><span [ngStyle]="{ color: message.player === 1 ? 'orangered' : 'royalblue' }"
+                            ><b>{{ this.getPlayerName(message.player) }} : </b></span
+                        >{{ message.value }}</span
+                    >
+                    <span *ngIf="message.player === 0" [ngStyle]="{ color: 'darkolivegreen' }">{{ message.value }}</span>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div *ngIf="multiplayerOn" class="chat-box">
+        <mat-form-field appearance="fill" class="input-field">
+            <mat-label>{{ 'Write a message' | translate }}</mat-label>
+            <input
+                [disabled]="this.replayService.isDisplaying"
+                matInput
+                maxlength="200"
+                #chatBox
+                (focus)="toggleFlag(true)"
+                (blur)="toggleFlag(false)"
+                (keyup.enter)="sendChatMessage(chatBox)"
+            />
+            <mat-hint align="end">{{ chatBox.value.length }}/200</mat-hint>
+        </mat-form-field>
+        <button mat-icon-button color="primary" class="send-button" (click)="sendChatMessage(chatBox)">
+            <mat-icon>send</mat-icon>
+        </button>
+    </div>
+</mat-card-content>

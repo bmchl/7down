@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ 'Messaging App' | translate }}</title>
+        <link rel="stylesheet" type="text/css" href="message-interface.component.scss" />
+    </head>
+
+    <div class="container back">
+        <app-sidebar></app-sidebar>
+
+        <div class="matb">
+            <mat-tab-group animationDuration="0ms">
+                <!-- Tab for Rooms the User Has Joined -->
+                <mat-tab label="My Rooms">
+                    <div *ngFor="let room of userRooms">
+                        <span>{{ room.name }}</span>
+                        <button mat-button (click)="enterRoom(room.id)">Enter Room</button>
+                        <!-- Only show the Leave Room button if it is not the global room -->
+                        <button mat-button color="warn" *ngIf="room.id !== 'global'" (click)="leaveRoom(room.id)">Leave Room</button>
+                    </div>
+                </mat-tab>
+                <!-- Tab for Public Rooms Available to Join -->
+                <mat-tab label="Available Public Rooms">
+                    <div *ngFor="let room of publicRooms">
+                        <span>{{ room.name }}</span>
+                        <button mat-button (click)="joinRoom(room.id)">Join Room</button>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+
+        <div class="middle-section back">
+            <div class="user-profile">
+                <span id="username-display" class="Title"> {{ 'Global Chat' | translate }}</span>
+                <a mat-button (click)="detachChat()" color="primary" target="_blank" class="detachBtn">Window Mode</a>
+                <span class="active-user-count">{{ 'Active Users:' | translate }} {{ activeUserCount }}</span>
+            </div>
+            <div id="chatWindow" #chatWindow>
+                <div
+                    *ngFor="let message of messages.slice().reverse(); let i = index"
+                    class="message"
+                    [class.message-right]="isMessageFromCurrentUser(message.sender)"
+                    [class.message-left]="!isMessageFromCurrentUser(message.sender)"
+                >
+                    <div class="message-username">{{ message.username }}</div>
+                    <div class="message-text">{{ message.text }}</div>
+                    <div class="message-time">{{ message.time }}</div>
+                    <div *ngIf="!isMessageFromCurrentUser(message.sender)" class="report-user" (click)="reportUser(message.username)">
+                        <mat-icon>flag</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-section">
+                <mat-form-field class="message-box">
+                    <textarea
+                        matInput
+                        type="text"
+                        [(ngModel)]="newMessage.text"
+                        placeholder="Type a message..."
+                        (keydown.enter)="sendMessageOnEnter($event)"
+                        class="no-resize pr-12 box-border"
+                        #messageInput
+                    ></textarea>
+                    <button mat-raised-button class="buttonGlobalChat" color="primary" type="button" (click)="sendMessage()">
+                        <mat-icon>send</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <!-- Toggle Section for Room Operations -->
+                <div class="toggle-section">
+                    <mat-button-toggle-group
+                        #group="matButtonToggleGroup"
+                        (change)="onToggleChange(group.value)"
+                        name="options"
+                        aria-label="Room Options"
+                    >
+                        <mat-button-toggle value="join">{{ 'Join Room' | translate }}</mat-button-toggle>
+                        <mat-button-toggle value="create">{{ 'Create Room' | translate }}</mat-button-toggle>
+                        <mat-button-toggle *ngIf="currentRoom !== 'global'" value="addUser">{{ 'Add User' | translate }}</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+
+                <!-- Conditional Form Fields Based on Toggle Option -->
+                <mat-form-field *ngIf="toggleOption === 'join'" class="enterRoomCode">
+                    <input matInput [(ngModel)]="roomNumber" placeholder="Enter room ID" type="text" class="no-resize" />
+                    <button mat-raised-button color="primary" type="button" (click)="joinRoom(roomNumber)">
+                        {{ 'Join' | translate }}
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="toggleOption === 'create'" class="enterRoomCode">
+                    <mat-label>{{ 'Create Room' | translate }}</mat-label>
+                    <input matInput [(ngModel)]="roomName" placeholder="Room name" type="text" />
+                    <button mat-button (click)="toggleRoomPrivacy()">
+                        {{ isPrivate ? 'Set to Public' : 'Set to Private' }}
+                    </button>
+                    <span>Current setting: {{ isPrivate ? 'Private' : 'Public' }}</span>
+                    <button mat-raised-button color="primary" (click)="createRoom(roomName, isPrivate)">Create Room</button>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="toggleOption === 'addUser'" class="enterRoomCode">
+                    <mat-label>{{ 'Add user to Room' | translate }}</mat-label>
+                    <input matInput [(ngModel)]="userToAdd" placeholder="Enter the username" type="text" />
+                    <button mat-raised-button color="primary" (click)="addUserToRoom(userToAdd)">
+                        {{ 'Add' | translate }}
+                    </button>
+                </mat-form-field>
+
+                <!-- <mat-form-field class="CreateChatRoom">
+                        <mat-label>Create Room</mat-label>
+                        <input matInput [(ngModel)]="roomName" placeholder="room name" type="text" />
+                        <button mat-raised-button color="primary" class="buttonAddUserRoom" (click)="createRoom(roomName)">+</button>
+                    </mat-form-field> -->
+            </div>
+        </div>
+    </div>
+</html>

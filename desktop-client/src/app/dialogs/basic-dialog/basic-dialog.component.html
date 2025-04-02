@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+
+<span mat-dialog-actions [align]="'end'">
+    <button *ngIf="data.cancel" mat-button (click)="this.dialogRef.close(false)">{{ data.cancel }}</button>
+    <button *ngIf="data.routerLink" mat-button (click)="this.dialogRef.close(true)" [routerLink]="data.routerLink" cdkFocusInitial>
+        {{ data.confirm }}
+    </button>
+    <button *ngIf="!data.routerLink" mat-button (click)="this.dialogRef.close(true)" cdkFocusInitial>{{ data.confirm }}</button>
+    <button *ngIf="data.saveReplay" mat-button (click)="saveReplay()">{{ data.saveReplay }}</button>
+</span>

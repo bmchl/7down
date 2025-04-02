@@ -1,0 +1,37 @@
+<section class="play-area">
+    <div class="flex flex-col gap-2 bg-[#E0DDF0] bg-opacity-70 p-6 rounded-lg">
+        <div class="comparison-grid flex gap-2">
+            <div class="draw-container">
+                <canvas
+                    class="grid-area"
+                    id="canvas1"
+                    #gridCanvas0
+                    (click)="mouseHitDetect($event)"
+                    [attr.width]="width"
+                    [attr.height]="height"
+                ></canvas>
+                <canvas class="absolute z-[1] top-0 left-0" id="canvas1" #gridCanvas2 [attr.width]="width" [attr.height]="height"></canvas>
+                <span [style.left.px]="error.x" [style.top.px]="error.y" *ngIf="error.show">{{ 'ERROR' | translate }}</span>
+            </div>
+            <div class="draw-container">
+                <canvas
+                    class="grid-area"
+                    id="canvas2"
+                    #gridCanvas1
+                    (click)="mouseHitDetect($event)"
+                    [attr.width]="width"
+                    [attr.height]="height"
+                ></canvas>
+                <canvas class="absolute z-[1] top-0 left-0" id="canvas2" #gridCanvas3 [attr.width]="width" [attr.height]="height"></canvas>
+                <span [style.left.px]="error.x" [style.top.px]="error.y" *ngIf="error.show">{{ 'ERROR' | translate }}</span>
+            </div>
+        </div>
+        <div class="self-center" *ngIf="gameService.spectator">
+            <label for="player-select">{{ 'Show Hint To' | translate }}: </label>
+            <select id="player-select" [(ngModel)]="selectedPlayer">
+                <option [value]="-1">{{ 'All Players' | translate }}</option>
+                <option *ngFor="let player of activePlayers; let i = index" [value]="i">{{ player.name }}</option>
+            </select>
+        </div>
+    </div>
+</section>

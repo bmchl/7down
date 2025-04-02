@@ -1,0 +1,91 @@
+.container {
+    padding: 20px;
+
+    .user-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+
+        .user {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+
+            img {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                margin-bottom: 10px;
+            }
+
+            button {
+                padding: 5px 10px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+
+            .friend-list {
+                overflow-y: auto;
+                max-height: 200px; /* Adjust as needed */
+                padding-top: 10px; /* Add padding to separate from user avatar */
+            }
+
+            .friend {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 5px 0;
+
+                .small-avatar {
+                    width: 50px; /* Adjust as needed */
+                    height: 50px; /* Adjust as needed */
+                    border-radius: 50%;
+                    margin-bottom: 5px;
+                }
+
+                .friend-details {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center; /* Add space between avatar and details */
+                }
+
+                .friend-details span {
+                    margin-bottom: 5px;
+                }
+
+                .friend-details button {
+                    padding: 3px 8px;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.dark .bg-white {
+    background-color: #333333;
+}
+
+.toggle-dark-mode {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}

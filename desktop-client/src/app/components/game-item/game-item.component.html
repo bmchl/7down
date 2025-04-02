@@ -1,0 +1,137 @@
+<!--<a
+    routerLink="/classic/{{ game.id }}"
+    [state]="{ game: game }"
+    *ngIf="game"
+    class="p-6 rounded-lg bg-[#E0DDF0] bg-opacity-30 flex gap-5 hover:bg-opacity-70 transition-all border-4 border-transparent border-solid hover:cursor-pointer hover:border-[#8F84CA] hover:border-opacity-50"
+>
+    <img [src]="serverPath + game.image" class="image w-[320px] h-[240px] rounded-lg border-2 border-solid border-[#8F84CA] border-opacity-50" />
+    <div class="flex flex-col justify-between flex-1">
+        <div class="flex justify-between">
+            <div class="flex flex-col">
+                <span class="text-3xl"
+                    >{{ game.gameName ? game.gameName.charAt(0).toUpperCase() + game.gameName.slice(1) : '{{ "Untitled" | translate }}' }}</span
+                >
+                <span class="text-xl">{{ 'Username' | translate }}</span>
+            </div>
+            <button class="bg-[#8F84CA] bg-opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0">
+                <mat-icon class="">arrow_forward</mat-icon>
+            </button>
+        </div>
+        <div class="flex flex-col w-full">
+            <div class="flex text-2xl items-center gap-2">
+                <span>{{ game.difficulty >= 7 ? ('Hard' | translate) : ('Easy' | translate) }}</span>
+                <div class="w-1 h-1 bg-black rounded-full"></div>
+                <span>{{ (23032).toLocaleString('en-US').replace(',', ' ') }} {{ 'play' | translate }}{{ 10 > 1 ? 's' : '' }}</span>
+                <div class="w-1 h-1 bg-black rounded-full"></div>
+                <span
+                    >{{ (game.likes ?? 0).toLocaleString('en-US').replace(',', ' ') }} {{ 'like' | translate
+                    }}{{ [-1, 1].includes(game.likes ?? 0) ? '' : 's' }}</span
+                >
+            </div>
+        </div>
+    </div>
+     <div class="buttons">
+            <mat-card-actions *ngIf="this.configOn">
+                <button mat-flat-button color="accent" aria-label="Reinitialiser" (click)="resetTimes()">
+                    <mat-icon>replay</mat-icon> Réinitialiser
+                </button>
+                <button mat-flat-button color="warn" aria-label="Delete" (click)="deleteGame()"><mat-icon>delete</mat-icon> Effacer</button>
+            </mat-card-actions>
+            <mat-card-actions *ngIf="!this.configOn">
+                <button mat-flat-button color="primary" (click)="createGame()"><mat-icon inline="true">play_arrow</mat-icon> Jouer solo</button>
+                <div *ngIf="game.isGameOn">
+                    <button mat-flat-button color="accent" (click)="joinMultiGame()">
+                        <mat-icon inline="true">people</mat-icon> Rejoindre 1 vs 1
+                    </button>
+                </div>
+                <div *ngIf="!game.isGameOn">
+                    <button mat-flat-button color="primary" (click)="createMultiGame()">
+                        <mat-icon inline="true">people</mat-icon> Créer 1 vs 1
+                    </button>
+                </div>
+            </mat-card-actions>
+        </div> -->
+<!-- <mat-card-content class="right">
+        <mat-card-title-group>
+            <mat-card-title>{{ game.gameName ? game.gameName : 'Sans titre' }} </mat-card-title>
+            <mat-card-subtitle
+                >Difficulté:
+                <span [ngStyle]="{ color: game.difficulty === 10 ? 'red' : 'green' }">{{
+                    game.difficulty === 10 ? 'DIFFICILE' : 'FACILE'
+                }}</span></mat-card-subtitle
+            >
+        </mat-card-title-group>
+        <app-leaderboards [solo]="this.game.soloLeaderboard" [multi]="this.game.multiLeaderboard"></app-leaderboards>
+    </mat-card-content> 
+</a>-->
+
+<a
+    *ngIf="configOn && !game.deleted; else linkBlock"
+    class="p-6 rounded-lg bg-[#E0DDF0] bg-opacity-30 flex gap-5 border-4 border-transparent border-solid"
+>
+    <img [src]="serverPath + game.image" class="image w-[320px] h-[240px] rounded-lg border-2 border-solid border-[#8F84CA] border-opacity-50" />
+    <div class="flex flex-col justify-between flex-1">
+        <div class="flex justify-between">
+            <div class="flex flex-col">
+                <span class="text-3xl">
+                    {{ game.gameName ? game.gameName.charAt(0).toUpperCase() + game.gameName.slice(1) : '{{ "Untitled" | translate }}' }}
+                </span>
+                <span class="text-xl">{{ 'Username' | translate }}</span>
+            </div>
+            <button
+                (click)="markGameAsDeleted()"
+                class="bg-[#8F84CA] bg-opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0 cursor-pointer"
+            >
+                <mat-icon class="text-[#8F84CA]">delete</mat-icon>
+            </button>
+        </div>
+        <div class="flex flex-col w-full">
+            <div class="flex text-2xl items-center gap-2">
+                <span>{{ game.difficulty >= 7 ? ('Hard' | translate) : ('Easy' | translate) }}</span>
+                <div class="w-1 h-1 bg-black rounded-full"></div>
+                <span>{{ (23032).toLocaleString('en-US').replace(',', ' ') }} {{ 'play' | translate }}{{ 10 > 1 ? 's' : '' }}</span>
+                <div class="w-1 h-1 bg-black rounded-full"></div>
+                <span>
+                    {{ (game.likes ?? 0).toLocaleString('en-US').replace(',', ' ') }} {{ 'like' | translate
+                    }}{{ [-1, 1].includes(game.likes ?? 0) ? '' : 's' }}
+                </span>
+            </div>
+        </div>
+    </div>
+</a>
+
+<ng-template #linkBlock>
+    <a
+        routerLink="/classic/{{ game.id }}"
+        [state]="{ game: game }"
+        *ngIf="game && !game.deleted"
+        class="p-6 rounded-lg bg-[#E0DDF0] bg-opacity-30 flex gap-5 hover:bg-opacity-70 transition-all border-4 border-transparent border-solid hover:cursor-pointer hover:border-[#8F84CA] hover:border-opacity-50"
+    >
+        <img [src]="serverPath + game.image" class="image w-[320px] h-[240px] rounded-lg border-2 border-solid border-[#8F84CA] border-opacity-50" />
+        <div class="flex flex-col justify-between flex-1">
+            <div class="flex justify-between">
+                <div class="flex flex-col">
+                    <span class="text-3xl"
+                        >{{ game.gameName ? game.gameName.charAt(0).toUpperCase() + game.gameName.slice(1) : '{{ "Untitled" | translate }}' }}</span
+                    >
+                    <span class="text-xl">{{ 'Username' | translate }}</span>
+                </div>
+                <button disabled class="bg-[#8F84CA] bg-opacity-50 w-fit h-fit p-2 rounded-full flex items-center border-0">
+                    <mat-icon class="">arrow_forward</mat-icon>
+                </button>
+            </div>
+            <div class="flex flex-col w-full">
+                <div class="flex text-2xl items-center gap-2">
+                    <span>{{ game.difficulty >= 7 ? ('Hard' | translate) : ('Easy' | translate) }}</span>
+                    <div class="w-1 h-1 bg-black rounded-full"></div>
+                    <span>{{ game.plays?.toLocaleString('en-US')?.replace(',', ' ') }} {{ 'play' | translate }}{{ 10 > 1 ? 's' : '' }}</span>
+                    <div class="w-1 h-1 bg-black rounded-full"></div>
+                    <span
+                        >{{ (game.likes ?? 0).toLocaleString('en-US').replace(',', ' ') }} {{ 'like' | translate
+                        }}{{ [-1, 1].includes(game.likes ?? 0) ? '' : 's' }}</span
+                    >
+                </div>
+            </div>
+        </div>
+    </a>
+</ng-template>

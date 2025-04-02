@@ -1,0 +1,14 @@
+<div class="dialog-container">
+    <h1 class="dialog-title">Participants in {{ roomName }}</h1>
+    <p class="creation-date">Created on: {{ data.createdDate | date }}</p>
+    <ul class="participants-list">
+        <li class="participant-item" *ngFor="let participant of data.participants">
+            <img *ngIf="participant.avatarUrl" [src]="participant.avatarUrl" alt="{{ participant.username }}" class="avatar" />
+            <span class="username">{{ participant.username }}</span>
+        </li>
+    </ul>
+    <div class="actions">
+        <button mat-button mat-dialog-close class="action-button">Close</button>
+        <button *ngIf="data.isAdmin" mat-button (click)="deleteRoom()" class="action-button delete-button">Delete Room</button>
+    </div>
+</div>

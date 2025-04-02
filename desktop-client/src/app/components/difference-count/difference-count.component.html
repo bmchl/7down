@@ -1,0 +1,12 @@
+<h2>
+    {{ 'Differences found by' | translate }}
+    <span
+        [ngStyle]="{ color: gameService.match?.players?.[index]?.id === socketService.id ? 'royalblue' : 'orangered' }"
+        >{{ gameService.match?.players?.[index]?.name }}</span
+    >
+</h2>
+<mat-card-title *ngIf="!gameService.match?.players?.[index]?.forfeitter">
+    {{ gameService.match?.players?.[index]?.found }}
+    {{ gameService.match.gamemode !== 'time-limit' ? '/' + roundNumber((gameService.map?.differenceCount ?? 0) / 2) : '' }}</mat-card-title
+>
+<mat-card-title *ngIf="gameService.match?.players?.[index]?.forfeitter">{{ 'Abandonned' | translate }}</mat-card-title>

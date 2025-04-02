@@ -1,0 +1,47 @@
+# Dependency directories
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnp
+.pnp.js
+
+# Build outputs
+/build
+/dist
+/out
+/.next/
+.nuxt
+.output
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDEs and editors
+/.idea
+/.vscode
+*.swp
+*.swo
+.DS_Store
+
+# Firebase service account keys and config files with credentials
+server/app/utils/fbkey.json
+**/firebaseConfig.ts
+**/firebase.config.js
+**/firebase_config.dart
+**/GoogleService-Info.plist
+**/google-services.json
+
+# Include template versions
+!**/fbkey.template.json
+!**/firebaseConfig.template.ts
+
+# Log files
+*.log
+
+# Include other .gitignore files from subdirectories
+!*/.gitignore 

@@ -1,0 +1,48 @@
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<div class="h-full">
+    <div class="flex w-[calc(65vw-300px)] ml-[300px] px-12 box-border mt-12 justify-center" *ngIf="this.gameService.match">
+        <div class="container flex flex-col gap-4">
+            <app-game-info></app-game-info>
+            <h2 *ngIf="this.replayService.isDisplaying">{{ 'You are in video replay mode' | translate }}</h2>
+            <div [ngClass]="{ ignoreClick: this.gameService.match.winnerSocketId !== undefined }">
+                <section class="play-area-container">
+                    <app-play-area [differences]="differences" [images]="gameImages" class="play-area" tabindex="0"></app-play-area>
+                </section>
+            </div>
+            <div class="p-6 rounded-lg bg-[#E0DDF0] bg-opacity-30 w-full">
+                <div *ngIf="!this.replayService.isDisplaying" class="multi-game-footer info-bar">
+                    <app-stopwatch></app-stopwatch>
+                    <app-difference-count *ngFor="let player of gameService.match?.players; index as i" [index]="i"></app-difference-count>
+                </div>
+                <div *ngIf="this.replayService.isDisplaying" class="replay">
+                    <button mat-icon-button (click)="this.replayService.reset()">
+                        <mat-icon>fast_rewind</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="this.replayService.toggleReplay()">
+                        <mat-icon>{{ this.replayService.isPause ? 'play_arrow' : 'pause' }}</mat-icon>
+                    </button>
+                    <span>{{ this.time.format(this.replayService.getProgressTime()) }}</span>
+
+                    <input
+                        class="slider"
+                        type="range"
+                        #slider
+                        [value]="(replayService.progressTime / replayService.gameTime) * 100"
+                        min="0"
+                        step="1"
+                        (change)="onSliderChange(slider.value)"
+                    />
+
+                    <span>{{ this.time.format(this.replayService.getGameTime()) }}</span>
+                    <mat-button-toggle-group [(ngModel)]="this.replayService.replaySpeedValue" style="margin-left: auto">
+                        <mat-button-toggle value="1">x1</mat-button-toggle>
+                        <mat-button-toggle value="2">x2</mat-button-toggle>
+                        <mat-button-toggle value="4">x4</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

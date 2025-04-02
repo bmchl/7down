@@ -1,0 +1,41 @@
+<app-sidebar></app-sidebar>
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<!-- 
+<div class="chat-container" [ngClass]="{ minimized: isChatMinimized }">
+    <button mat-icon-button (click)="toggleChatMinimize()">
+        <mat-icon>open_in_new</mat-icon>
+    </button>
+    <app-global-chat-component></app-global-chat-component>
+</div> -->
+
+<div class="flex w-[calc(100vw-350px)] ml-[350px] px-12 box-border mt-12 justify-center">
+    <div class="flex flex-col gap-10 bg-[#E0DDF0] bg-opacity-30 p-10 rounded-2xl w-fit">
+        <div *ngIf="!currentMatch" class="flex flex-col w-[580px] gap-10">
+            <div class="flex justify-between">
+                <span class="text-3xl">{{ 'Ongoing Matches' | translate }}</span>
+            </div>
+            <div class="flex flex-col gap-5">
+                <div class="flex justify-between bg-[#E0DDF0] bg-opacity-30 rounded-2xl p-5" *ngFor="let match of filteredMatches">
+                    <div class="flex gap-2 items-center">
+                        <div class="w-8 h-8 bg-slate-500 rounded-full overflow-hidden">
+                            <img [src]="match.players[0].profilePic" class="w-full h-full" />
+                        </div>
+                        <span class="text-xl">{{ match.players[0].name }}</span>
+                        <span>{{ match.gamemode === 'classic' ? 'C' : 'TL' }}</span>
+                    </div>
+                    <div class="flex gap-2 items-center">
+                        <div class="flex items-center gap-1"><mat-icon class="">visibility</mat-icon> {{ match.spectators.length }}</div>
+                        <button
+                            (click)="spectateMatch(match.matchId)"
+                            class="bg-[#1A1789] bg-opacity-45 w-fit h-fit text-2xl py-2 text-white px-11 rounded-full flex items-center border-0 cursor-pointer"
+                        >
+                            {{ 'Spectate' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

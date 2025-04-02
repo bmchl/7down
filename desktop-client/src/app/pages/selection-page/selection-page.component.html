@@ -1,0 +1,11 @@
+<div>
+    <app-game-chat-component></app-game-chat-component>
+</div>
+<div class="container back">
+    <app-sidebar></app-sidebar>
+    <div class="flex w-[calc(100vw-300px)] ml-[300px] px-12 box-border mt-12 justify-center" *ngIf="this.gamesLoaded">
+        <app-games-display [configOn]="false"></app-games-display>
+    </div>
+</div>
+
+<!-- <div> -->
