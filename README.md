@@ -227,3 +227,4 @@ Pour des raisons de sécurité, les fichiers contenant des clés API, des identi
 2. Remplissez-le avec les informations de configuration Firebase de votre projet.
 
 Ces fichiers sont ajoutés au `.gitignore` pour éviter qu'ils ne soient accidentellement poussés vers le dépôt public.
+This is a test
